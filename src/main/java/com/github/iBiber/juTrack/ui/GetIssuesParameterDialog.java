@@ -1,19 +1,18 @@
 package com.github.iBiber.juTrack.ui;
 
 import java.time.LocalDate;
-import java.util.function.Consumer;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
+import com.github.iBiber.juTrack.JiraIssuesProcessor;
 import com.github.iBiber.juTrack.data.GetIssuesParmeter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -22,24 +21,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-public class GetIssuesParameterDialog extends Stage {
-
-	public GetIssuesParameterDialog(ApplicationContext appContext, Stage owner,
-	        Consumer<GetIssuesParmeter> credentialConsumer) {
+@Component
+public class GetIssuesParameterDialog extends GridPane {
+	@Autowired
+	public GetIssuesParameterDialog(Environment env, JiraIssuesProcessor callback) {
 		super();
-		initOwner(owner);
 
-		Environment env = appContext.getBean(Environment.class);
-
-		setTitle("Get Jira issues");
-		Group root = new Group();
-		Scene scene = new Scene(root, 300, 300, Color.WHITE);
-		setScene(scene);
-
-		GridPane gridpane = new GridPane();
+		GridPane gridpane = this;
 		gridpane.setPadding(new Insets(5));
 		gridpane.setHgap(5);
 		gridpane.setVgap(5);
@@ -48,7 +37,7 @@ public class GetIssuesParameterDialog extends Stage {
 
 		int row = 0;
 		TextField jiraRootUrlField = new TextField();
-		String jiraRootUrl = appContext.getBean(Environment.class).getProperty(jiraRootUrlProperty);
+		String jiraRootUrl = env.getProperty(jiraRootUrlProperty);
 		if (jiraRootUrl != null) {
 			jiraRootUrlField.setText(jiraRootUrl);
 		}
@@ -77,6 +66,7 @@ public class GetIssuesParameterDialog extends Stage {
 		gridpane.add(endDatePicker, 1, row++);
 
 		Button startAction = new Button("Ok");
+		startAction.defaultButtonProperty();
 		startAction.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				if (jiraRootUrlField.getText() == null || jiraRootUrlField.getText().isEmpty()) {
@@ -93,15 +83,12 @@ public class GetIssuesParameterDialog extends Stage {
 					GetIssuesParmeter parameter = new GetIssuesParmeter(jiraRootUrlField.getText(),
 					        userNameField.getText(), passwordField.getText(), startDatePicker.getValue(),
 					        endDatePicker.getValue());
-					credentialConsumer.accept(parameter);
-
-					close();
+					callback.getIssues(parameter);
 				}
 			}
 		});
 		gridpane.add(startAction, 1, row++);
 
 		GridPane.setHalignment(startAction, HPos.RIGHT);
-		root.getChildren().add(gridpane);
 	}
 }
