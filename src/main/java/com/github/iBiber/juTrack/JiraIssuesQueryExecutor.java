@@ -5,22 +5,26 @@ import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.github.iBiber.juTrack.data.Credentials;
 import com.github.iBiber.juTrack.data.jira.JiraIssuesQueryResults;
 import com.github.iBiber.juTrack.util.JiraQuery;
 
+@Component
 public class JiraIssuesQueryExecutor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesQueryExecutor.class);
 
-	private JiraIssuesQueryResults queryResults;
-	private final String jiraUrl;
+	private JiraQuery jiraQuery;
 
-	public JiraIssuesQueryExecutor(String jiraUrl) {
-		this.jiraUrl = jiraUrl;
+	@Autowired
+	public JiraIssuesQueryExecutor(JiraQuery jiraQuery) {
+		this.jiraQuery = jiraQuery;
 	}
 
-	public JiraIssuesQueryResults getIssues(Credentials credentials, LocalDate startDate, LocalDate endDate) {
+	public JiraIssuesQueryResults getIssues(String jiraUrl, Credentials credentials, LocalDate startDate,
+	        LocalDate endDate) {
 		try {
 			String startDateStr = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			String endDateStr = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -30,7 +34,8 @@ public class JiraIssuesQueryExecutor {
 			        + " AND status changed during (\"" + startDateStr + "\",\"" + endDateStr + "\")" // Filter for time range
 			        + "&fields=key,summary" // reduce the issue result to the fields "key" and "summary"
 			        + "&expand=changelog"; // collect the change log of each issue
-			queryResults = new JiraQuery().query(credentials, JiraIssuesQueryResults.class, url, urlParameter);
+			JiraIssuesQueryResults queryResults = jiraQuery.query(credentials, JiraIssuesQueryResults.class, url,
+			        urlParameter);
 
 			if (queryResults.total > queryResults.maxResults) {
 				LOGGER.warn("The query returns to many results " + queryResults.total + " and only the first "
@@ -42,9 +47,5 @@ public class JiraIssuesQueryExecutor {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public JiraIssuesQueryResults getQueryResults() {
-		return queryResults;
 	}
 }
