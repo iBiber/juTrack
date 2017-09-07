@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack.data;
+package com.github.ibiber.jutrack.data;
 
 import java.time.LocalDate;
 

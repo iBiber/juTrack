@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack;
+package com.github.ibiber.jutrack;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.iBiber.juTrack.data.GetIssueResultItem;
-import com.github.iBiber.juTrack.data.GetIssuesParmeter;
-import com.github.iBiber.juTrack.data.jira.Issue;
+import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.jira.Issue;
 
 @Component
 public class JiraIssuesProcessor {
@@ -36,7 +36,7 @@ public class JiraIssuesProcessor {
 		List<Issue> issues = queryExecutor.getIssues(parameter.jiraRootUrl, parameter.credentials, parameter.startDate,
 		        parameter.endDate).issues;
 
-		// Process result
+		// Filter and transform query result
 		List<GetIssueResultItem> resultList = transformer.execute(userName, issues);
 
 		// Print result

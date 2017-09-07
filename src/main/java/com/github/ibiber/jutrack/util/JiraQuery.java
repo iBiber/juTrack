@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack.util;
+package com.github.ibiber.jutrack.util;
 
 import java.util.Base64;
 
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.github.iBiber.juTrack.data.Credentials;
+import com.github.ibiber.jutrack.data.Credentials;
 
 @Component
 public class JiraQuery {

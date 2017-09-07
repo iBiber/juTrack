@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack;
+package com.github.ibiber.jutrack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.github.iBiber.juTrack.data.GetIssueResultItem;
-import com.github.iBiber.juTrack.data.jira.History;
-import com.github.iBiber.juTrack.data.jira.HistoryItem;
-import com.github.iBiber.juTrack.data.jira.Issue;
+import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.jira.History;
+import com.github.ibiber.jutrack.data.jira.HistoryItem;
+import com.github.ibiber.jutrack.data.jira.Issue;
 
 /**
  * Filters the given {@link Issue} list for the given <code>userName</code> and the resulting list is transformed to a

@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack.data.jira;
+package com.github.ibiber.jutrack.data.jira;
 
 public class Issue {
     public final String self;

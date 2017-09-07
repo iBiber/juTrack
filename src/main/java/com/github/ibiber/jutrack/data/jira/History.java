@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack.data.jira;
+package com.github.ibiber.jutrack.data.jira;
 
 import java.util.List;
 

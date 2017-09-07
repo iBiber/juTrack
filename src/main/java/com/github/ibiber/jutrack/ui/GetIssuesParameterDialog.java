@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack.ui;
+package com.github.ibiber.jutrack.ui;
 
 import java.time.LocalDate;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.github.iBiber.juTrack.JiraIssuesProcessor;
-import com.github.iBiber.juTrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.JiraIssuesProcessor;
+import com.github.ibiber.jutrack.data.GetIssuesParmeter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

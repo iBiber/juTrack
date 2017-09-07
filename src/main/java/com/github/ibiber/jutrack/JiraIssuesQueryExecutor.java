@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack;
+package com.github.ibiber.jutrack;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.iBiber.juTrack.data.Credentials;
-import com.github.iBiber.juTrack.data.jira.JiraIssuesQueryResults;
-import com.github.iBiber.juTrack.util.JiraQuery;
+import com.github.ibiber.jutrack.data.Credentials;
+import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
+import com.github.ibiber.jutrack.util.JiraQuery;
 
 @Component
 public class JiraIssuesQueryExecutor {

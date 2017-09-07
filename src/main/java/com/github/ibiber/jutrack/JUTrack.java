@@ -1,4 +1,4 @@
-package com.github.iBiber.juTrack;
+package com.github.ibiber.jutrack;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
 
-import com.github.iBiber.juTrack.ui.GetIssuesParameterDialog;
+import com.github.ibiber.jutrack.ui.GetIssuesParameterDialog;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
