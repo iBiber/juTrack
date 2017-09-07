@@ -45,7 +45,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>jira_get_issues.Start</mainClass>
+							<mainClass>com.github.iBiber.juTrack.JUTrack</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
