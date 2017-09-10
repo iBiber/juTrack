@@ -5,7 +5,3 @@ Code quality check: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/
 # juTrack
 juTrack searches for tracks from the logged in user in jira to simplify time bookings.
 It uses the Jira REST interface to gather your actions done in a Jira system.
-
-## Modules
-* The main application is located in module jutrack.
-* The module jutrack.jirasimulator contains a developer tool to simulate a jira server to test the GUI.

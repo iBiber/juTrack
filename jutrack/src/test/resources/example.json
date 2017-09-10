@@ -1,0 +1,1177 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 3,
+  "issues": [
+    {
+      "expand": "operations,editmeta,changelog,transitions,renderedFields",
+      "id": "253496",
+      "self": "http://jira.intanet.net/rest/api/2/issue/253496",
+      "key": "JUTSUP-4971",
+      "fields": {
+        "summary": "A summary"
+      },
+      "changelog": {
+        "startAt": 0,
+        "maxResults": 10,
+        "total": 10,
+        "histories": [
+          {
+            "id": "4590741",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_02",
+              "name": "user_02",
+              "emailAddress": "user_02@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?avatarId=10402",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&avatarId=10402",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&avatarId=10402",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&avatarId=10402"
+              },
+              "displayName": "User 02",
+              "active": true
+            },
+            "created": "2017-08-25T21:50:00.484+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "191324",
+                "toString": "screenshot-1.png"
+              }
+            ]
+          },
+          {
+            "id": "4590744",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T21:50:55.762+0200",
+            "items": [
+              {
+                "field": "RemoteIssueLink",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "27402",
+                "toString": "This issue links to \"Wiki Page (Confluence)\""
+              }
+            ]
+          },
+          {
+            "id": "4590745",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T21:50:59.304+0200",
+            "items": [
+              {
+                "field": "description",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": "Old description",
+                "to": null,
+                "toString": "New description"
+              }
+            ]
+          },
+          {
+            "id": "4592158",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:51:35.055+0200",
+            "items": [
+              {
+                "field": "assignee",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "user_01",
+                "toString": "User 01"
+              }
+            ]
+          },
+          {
+            "id": "4592159",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:51:36.759+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10000",
+                "fromString": "Submitted",
+                "to": "10002",
+                "toString": "Accepted"
+              }
+            ]
+          },
+          {
+            "id": "4592160",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:51:38.008+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10002",
+                "fromString": "Accepted",
+                "to": "3",
+                "toString": "In Progress"
+              },
+              {
+                "field": "Developer Name",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": null,
+                "to": null,
+                "toString": "user_01"
+              }
+            ]
+          },
+          {
+            "id": "4592237",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:58:49.521+0200",
+            "items": [
+              {
+                "field": "Solution",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": null,
+                "to": null,
+                "toString": "Solution description"
+              },
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "3",
+                "fromString": "In Progress",
+                "to": "10021",
+                "toString": "Confirm closing"
+              },
+              {
+                "field": "resolution",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "1",
+                "toString": "Fixed"
+              }
+            ]
+          },
+          {
+            "id": "4592238",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:59:01.344+0200",
+            "items": [
+              {
+                "field": "Solution",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": "Solution description",
+                "to": null,
+                "toString": "New solution description"
+              }
+            ]
+          },
+          {
+            "id": "4592240",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-28T08:59:11.457+0200",
+            "items": [
+              {
+                "field": "WorklogId",
+                "fieldtype": "jira",
+                "from": "1142884",
+                "fromString": "1142884",
+                "to": null,
+                "toString": null
+              },
+              {
+                "field": "timespent",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "900",
+                "toString": "900"
+              },
+              {
+                "field": "timeestimate",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "0",
+                "toString": "0"
+              }
+            ]
+          },
+          {
+            "id": "4594667",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_02",
+              "name": "user_02",
+              "emailAddress": "user_02@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?avatarId=10402",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&avatarId=10402",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&avatarId=10402",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&avatarId=10402"
+              },
+              "displayName": "User 02",
+              "active": true
+            },
+            "created": "2017-08-28T16:06:04.654+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10021",
+                "fromString": "Confirm closing",
+                "to": "5",
+                "toString": "Resolved"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "expand": "operations,editmeta,changelog,transitions,renderedFields",
+      "id": "253430",
+      "self": "http://jira.intanet.net/rest/api/2/issue/253430",
+      "key": "JUTSUP-4997",
+      "fields": {
+        "summary": "Another summary"
+      },
+      "changelog": {
+        "startAt": 0,
+        "maxResults": 9,
+        "total": 9,
+        "histories": [
+          {
+            "id": "4588510",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T11:43:11.050+0200",
+            "items": [
+              {
+                "field": "assignee",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "user_01",
+                "toString": "User 01"
+              }
+            ]
+          },
+          {
+            "id": "4588511",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T11:43:12.903+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10000",
+                "fromString": "Submitted",
+                "to": "10002",
+                "toString": "Accepted"
+              }
+            ]
+          },
+          {
+            "id": "4588512",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T11:43:14.108+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10002",
+                "fromString": "Accepted",
+                "to": "3",
+                "toString": "In Progress"
+              },
+              {
+                "field": "Developer Name",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": null,
+                "to": null,
+                "toString": "user_01"
+              }
+            ]
+          },
+          {
+            "id": "4588876",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T13:02:02.434+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "3",
+                "fromString": "In Progress",
+                "to": "10021",
+                "toString": "Confirm closing"
+              },
+              {
+                "field": "resolution",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "1",
+                "toString": "Fixed"
+              }
+            ]
+          },
+          {
+            "id": "4588877",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T13:02:18.031+0200",
+            "items": [
+              {
+                "field": "WorklogId",
+                "fieldtype": "jira",
+                "from": "1141637",
+                "fromString": "1141637",
+                "to": null,
+                "toString": null
+              },
+              {
+                "field": "timespent",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "4500",
+                "toString": "4500"
+              },
+              {
+                "field": "timeestimate",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "0",
+                "toString": "0"
+              }
+            ]
+          },
+          {
+            "id": "4588889",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_03",
+              "name": "user_03",
+              "emailAddress": "user_03@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_03&avatarId=14888",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_03&avatarId=14888",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_03&avatarId=14888",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_03&avatarId=14888"
+              },
+              "displayName": "User 03",
+              "active": true
+            },
+            "created": "2017-08-25T13:03:57.368+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10021",
+                "fromString": "Confirm closing",
+                "to": "5",
+                "toString": "Resolved"
+              }
+            ]
+          },
+          {
+            "id": "4589062",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T13:33:16.943+0200",
+            "items": [
+              {
+                "field": "Link",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "JUTRACK-32429",
+                "toString": "This issue deals with similar topic as JUTRACK-32429"
+              }
+            ]
+          },
+          {
+            "id": "4589064",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-25T13:33:17.399+0200",
+            "items": [
+              {
+                "field": "Link",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "JUTRACK-34523",
+                "toString": "This issue deals with similar topic as JUTRACK-34523"
+              }
+            ]
+          },
+          {
+            "id": "4589066",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_04",
+              "name": "user_04",
+              "emailAddress": "user_04@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_04&avatarId=10685",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_04&avatarId=10685",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_04&avatarId=10685",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_04&avatarId=10685"
+              },
+              "displayName": "User 04",
+              "active": true
+            },
+            "created": "2017-08-25T13:33:24.852+0200",
+            "items": [
+              {
+                "field": "WorklogId",
+                "fieldtype": "jira",
+                "from": "1141721",
+                "fromString": "1141721",
+                "to": null,
+                "toString": null
+              },
+              {
+                "field": "timespent",
+                "fieldtype": "jira",
+                "from": "4500",
+                "fromString": "4500",
+                "to": "5400",
+                "toString": "5400"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "expand": "operations,editmeta,changelog,transitions,renderedFields",
+      "id": "251101",
+      "self": "http://jira.intanet.net/rest/api/2/issue/251101",
+      "key": "JUTSUP-4445",
+      "fields": {
+        "summary": "Third summary"
+      },
+      "changelog": {
+        "startAt": 0,
+        "maxResults": 16,
+        "total": 16,
+        "histories": [
+          {
+            "id": "4545992",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-09T16:55:08.395+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189886",
+                "toString": "server.log"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189885",
+                "toString": "server.log20170804"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189884",
+                "toString": "server.log.2017-08-04"
+              }
+            ]
+          },
+          {
+            "id": "4546048",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-09T17:04:56.716+0200",
+            "items": [
+              {
+                "field": "assignee",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "user_01",
+                "toString": "User 01"
+              }
+            ]
+          },
+          {
+            "id": "4546049",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-09T17:04:58.007+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10000",
+                "fromString": "Submitted",
+                "to": "10002",
+                "toString": "Accepted"
+              }
+            ]
+          },
+          {
+            "id": "4546050",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-09T17:05:02.173+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10002",
+                "fromString": "Accepted",
+                "to": "3",
+                "toString": "In Progress"
+              },
+              {
+                "field": "Developer Name",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": null,
+                "to": null,
+                "toString": "user_01"
+              }
+            ]
+          },
+          {
+            "id": "4546068",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-09T17:08:23.270+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "3",
+                "fromString": "In Progress",
+                "to": "10019",
+                "toString": "Waiting for Customer"
+              }
+            ]
+          },
+          {
+            "id": "4546070",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-09T17:08:29.781+0200",
+            "items": [
+              {
+                "field": "WorklogId",
+                "fieldtype": "jira",
+                "from": "1129338",
+                "fromString": "1129338",
+                "to": null,
+                "toString": null
+              },
+              {
+                "field": "timespent",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "900",
+                "toString": "900"
+              },
+              {
+                "field": "timeestimate",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "0",
+                "toString": "0"
+              }
+            ]
+          },
+          {
+            "id": "4546077",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-09T17:09:32.657+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189890",
+                "toString": "server.log"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189889",
+                "toString": "Applicaton notification.jpg"
+              }
+            ]
+          },
+          {
+            "id": "4546118",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-09T17:14:52.743+0200",
+            "items": [
+              {
+                "field": "description",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": "Desc01",
+                "to": null,
+                "toString": "Desc02"
+              }
+            ]
+          },
+          {
+            "id": "4546609",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-09T23:57:12.377+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189907",
+                "toString": "timestamps.png"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "189906",
+                "toString": "timestamps2.png"
+              }
+            ]
+          },
+          {
+            "id": "4549118",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-10T23:02:30.448+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "190002",
+                "toString": "check.png"
+              }
+            ]
+          },
+          {
+            "id": "4549129",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-11T00:50:13.031+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": "190002",
+                "fromString": "check.png",
+                "to": null,
+                "toString": null
+              }
+            ]
+          },
+          {
+            "id": "4549130",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-11T00:50:18.244+0200",
+            "items": [
+              {
+                "field": "Comment",
+                "fieldtype": "jira",
+                "from": "Attaching check screenshot",
+                "fromString": null,
+                "to": null,
+                "toString": null
+              }
+            ]
+          },
+          {
+            "id": "4556024",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_05",
+              "name": "user_05",
+              "emailAddress": "user_05@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_05&avatarId=16987",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_05&avatarId=16987",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_05&avatarId=16987",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_05&avatarId=16987"
+              },
+              "displayName": "User 05",
+              "active": true
+            },
+            "created": "2017-08-14T16:15:41.356+0200",
+            "items": [
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "190187",
+                "toString": "Error Description3.jpg"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "190186",
+                "toString": "Error Description2.jpg"
+              },
+              {
+                "field": "Attachment",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "190185",
+                "toString": "Error Description1.jpg"
+              }
+            ]
+          },
+          {
+            "id": "4556400",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-14T17:38:26.352+0200",
+            "items": [
+              {
+                "field": "WorklogId",
+                "fieldtype": "jira",
+                "from": "1132615",
+                "fromString": "1132615",
+                "to": null,
+                "toString": null
+              },
+              {
+                "field": "timespent",
+                "fieldtype": "jira",
+                "from": "900",
+                "fromString": "900",
+                "to": "2700",
+                "toString": "2700"
+              }
+            ]
+          },
+          {
+            "id": "4557228",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-15T08:31:02.377+0200",
+            "items": [
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "10019",
+                "fromString": "Waiting for Customer",
+                "to": "3",
+                "toString": "In Progress"
+              }
+            ]
+          },
+          {
+            "id": "4557230",
+            "author": {
+              "self": "http://jira.intanet.net/rest/api/2/user?username=user_01",
+              "name": "user_01",
+              "emailAddress": "user_01@intanet.net",
+              "avatarUrls": {
+                "48x48": "http://jira.intanet.net/secure/useravatar?ownerId=user_01&avatarId=12781",
+                "24x24": "http://jira.intanet.net/secure/useravatar?size=small&ownerId=user_01&avatarId=12781",
+                "16x16": "http://jira.intanet.net/secure/useravatar?size=xsmall&ownerId=user_01&avatarId=12781",
+                "32x32": "http://jira.intanet.net/secure/useravatar?size=medium&ownerId=user_01&avatarId=12781"
+              },
+              "displayName": "User 01",
+              "active": true
+            },
+            "created": "2017-08-15T08:32:43.604+0200",
+            "items": [
+              {
+                "field": "Solution",
+                "fieldtype": "custom",
+                "from": null,
+                "fromString": null,
+                "to": null,
+                "toString": "See comments"
+              },
+              {
+                "field": "status",
+                "fieldtype": "jira",
+                "from": "3",
+                "fromString": "In Progress",
+                "to": "10021",
+                "toString": "Confirm closing"
+              },
+              {
+                "field": "resolution",
+                "fieldtype": "jira",
+                "from": null,
+                "fromString": null,
+                "to": "1",
+                "toString": "Fixed"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
