@@ -1,9 +1,8 @@
 package com.github.ibiber.jutrack;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +19,14 @@ public class JiraIssuesProcessor {
 
 	private JiraIssuesQueryExecutor queryExecutor;
 	private IssueListToGetIssueResultItemListTransformer transformer;
+	private GetIssueResultItemPresenter presenter;
 
 	@Autowired
 	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor,
-	        IssueListToGetIssueResultItemListTransformer transformer) {
+	        IssueListToGetIssueResultItemListTransformer transformer, GetIssueResultItemPresenter presenter) {
 		this.queryExecutor = queryExecutor;
 		this.transformer = transformer;
+		this.presenter = presenter;
 	}
 
 	public void getIssues(GetIssuesParmeter parameter) {
@@ -40,14 +41,12 @@ public class JiraIssuesProcessor {
 		List<GetIssueResultItem> resultList = transformer.execute(userName, issues);
 
 		// Print result
-		resultList.stream().sorted(new Comparator<GetIssueResultItem>() {
+		Stream<GetIssueResultItem> sorted = resultList.stream().sorted(new Comparator<GetIssueResultItem>() {
 			@Override
 			public int compare(GetIssueResultItem o1, GetIssueResultItem o2) {
 				return o1.created.compareTo(o2.created);
 			}
-		}).forEach(item -> System.out
-		        .println(item.getDateTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
-		                + item.key + "\t" + item.changeAction + "\t" + item.summary + "\t" + parameter.jiraRootUrl
-		                + "/browse/" + item.key));
+		});
+		presenter.presentResults(parameter, sorted);
 	}
 }

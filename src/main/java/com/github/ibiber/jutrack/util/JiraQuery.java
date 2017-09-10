@@ -4,6 +4,7 @@ import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,12 @@ import com.github.ibiber.jutrack.data.Credentials;
 public class JiraQuery {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JiraQuery.class);
 
+	private RestTemplate restTemplate;
+
+	public JiraQuery(RestTemplateBuilder builder) {
+		this.restTemplate = builder.build();
+	}
+
 	public <T> T query(Credentials credentials, Class<T> responseType, String path, String queryParameters)
 	        throws Exception {
 		String queryUrl = path + "?" + queryParameters;
@@ -26,7 +33,7 @@ public class JiraQuery {
 		HttpHeaders headers = new HttpHeaders();
 		buildBasicAuthorizationHeader(headers, credentials);
 
-		ResponseEntity<T> exchangeResult = new RestTemplate().exchange(queryUrl, HttpMethod.GET,
+		ResponseEntity<T> exchangeResult = restTemplate.exchange(queryUrl, HttpMethod.GET,
 		        new HttpEntity<String>(headers), responseType);
 
 		if (exchangeResult.getStatusCode().is2xxSuccessful()) {
@@ -38,7 +45,7 @@ public class JiraQuery {
 		return exchangeResult.getBody();
 	}
 
-	private void buildBasicAuthorizationHeader(HttpHeaders headers, Credentials credentials) {
+	void buildBasicAuthorizationHeader(HttpHeaders headers, Credentials credentials) {
 		String encodeToString = Base64.getMimeEncoder()
 		        .encodeToString((credentials.userName + ":" + credentials.password).getBytes());
 		headers.add("Authorization", "Basic " + encodeToString);
