@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 
 import static org.hamcrest.CoreMatchers.is;
 
+import static org.mockito.Mockito.mock;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,6 +34,7 @@ import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.ui.GetIssuesParameterDialog;
 import com.github.ibiber.jutrack.util.JiraQuery;
 
 @RunWith(SpringRunner.class)
@@ -114,6 +117,11 @@ public class ModelIntegrationTest {
 		@Bean
 		public GetIssueResultItemPresenter presenter() {
 			return new TestGetIssueResultItemPresenter();
+		}
+
+		@Bean
+		public GetIssuesParameterDialog getIssuesParameterDialog() {
+			return mock(GetIssuesParameterDialog.class);
 		}
 	}
 }
