@@ -5,8 +5,8 @@
 	<description>juTrack searches for tracks from the logged in user in jira to simplify time bookings. </description>
 	<url>https://github.com/iBiber/juTrack</url>
 
-	<groupId>com.github.iBiber.juTrack</groupId>
-	<artifactId>com.github.iBiber.juTrack</artifactId>
+	<groupId>com.github.ibiber.jutrack</groupId>
+	<artifactId>jutrack</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<parent>
@@ -89,7 +89,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.github.iBiber.juTrack.JUTrack</mainClass>
+							<mainClass>com.github.ibiber.jutrack.JUTrack</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
