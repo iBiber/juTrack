@@ -24,8 +24,7 @@ public class JiraQuery {
 		this.restTemplate = builder.build();
 	}
 
-	public <T> T query(Credentials credentials, Class<T> responseType, String path, String queryParameters)
-	        throws Exception {
+	public <T> T query(Credentials credentials, Class<T> responseType, String path, String queryParameters) {
 		String queryUrl = path + "?" + queryParameters;
 
 		LOGGER.info("Query: " + queryUrl);
@@ -40,6 +39,9 @@ public class JiraQuery {
 			LOGGER.info("Query successful");
 		} else {
 			LOGGER.error("Query returns an error: " + exchangeResult.getStatusCode());
+			throw new IllegalStateException(
+			        "Unable to exectue the query to jira: " + exchangeResult.getStatusCode().getReasonPhrase() + " ("
+			                + exchangeResult.getStatusCode().value() + ")");
 		}
 
 		return exchangeResult.getBody();

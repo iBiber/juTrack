@@ -5,13 +5,32 @@
 	<description>juTrack searches for tracks from the logged in user in jira to simplify time bookings. </description>
 	<url>https://github.com/iBiber/juTrack</url>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.6.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<groupId>com.github.ibiber.jutrack</groupId>
 	<artifactId>com.github.ibiber.jutrack</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>jutrack-core</module>
 		<module>jutrack</module>
+		<module>jutrack-cli</module>
 		<module>jutrack.jirasimulator</module>
 	</modules>
+
+	<dependencyManagement>
+	</dependencyManagement>
 </project>

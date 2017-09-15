@@ -8,10 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
 
-import com.github.ibiber.jutrack.ui.GetIssuesParameterDialog;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 @Lazy
@@ -20,16 +21,32 @@ public class JUTrack extends Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JUTrack.class);
 
 	private ConfigurableApplicationContext appContext;
-
 	@Autowired
-	private GetIssuesParameterDialog parameterDialog;
+	private JuTrackGui parameterDialog;
+	@Autowired
+	private DefaultValueProvider defaultValueProvider;
+	@Autowired
+	private JiraIssuesProcessor jiraIssuesProcessor;
 
 	@Override
 	public void start(final Stage primaryStage) {
 		LOGGER.info("Open UI");
+		parameterDialog.init(defaultValueProvider, jiraIssuesProcessor::getIssues);
 		primaryStage.setTitle("Get Jira issues");
 		primaryStage.setScene(new Scene(parameterDialog));
 		primaryStage.setResizable(true);
+
+		Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+
+			Text text = new Text(throwable.getMessage());
+			text.setWrappingWidth(600);
+
+			alert.getDialogPane().setContent(text);
+			alert.showAndWait();
+		});
+
 		primaryStage.sizeToScene();
 		primaryStage.centerOnScreen();
 		primaryStage.show();
