@@ -26,9 +26,9 @@
 
 	<modules>
 		<module>jutrack-core</module>
-		<module>jutrack</module>
+		<module>jutrack-gui</module>
 		<module>jutrack-cli</module>
-		<module>jutrack.jirasimulator</module>
+		<module>jutrack-jirasimulator</module>
 	</modules>
 
 	<dependencyManagement>
