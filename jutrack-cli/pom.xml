@@ -6,7 +6,7 @@
 	<url>https://github.com/iBiber/juTrack</url>
 
 	<artifactId>jutrack-cli</artifactId>
-	<version>{$project.version}</version>
+	<version>${project.version}</version>
 	<packaging>jar</packaging>
 
 	<parent>

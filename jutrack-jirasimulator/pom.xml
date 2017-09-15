@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>jutrack-jirasimulator</artifactId>
-	<version>{$project.version}</version>
+	<version>${project.version}</version>
 	<packaging>jar</packaging>
 
 	<parent>
