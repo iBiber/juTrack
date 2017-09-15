@@ -32,5 +32,12 @@
 	</modules>
 
 	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.ibiber.jutrack</groupId>
+				<artifactId>jutrack-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
 	</dependencyManagement>
 </project>

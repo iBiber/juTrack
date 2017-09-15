@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>com.github.ibiber.jutrack</groupId>
 			<artifactId>jutrack-core</artifactId>
-			<version>{$project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
