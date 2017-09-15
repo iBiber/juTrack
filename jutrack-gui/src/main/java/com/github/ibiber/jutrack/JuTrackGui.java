@@ -13,7 +13,6 @@ import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.GetIssuesParmeter;
 import com.github.ibiber.jutrack.util.Strings;
 
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -33,10 +32,6 @@ import javafx.scene.layout.Priority;
 @Component
 public class JuTrackGui extends GridPane implements GetIssueResultItemPresenter {
 	private TextArea resultArea;
-
-	public JuTrackGui() {
-		super();
-	}
 
 	public void init(DefaultValueProvider defProperties, Consumer<GetIssuesParmeter> callback) {
 		GridPane gridpane = this;
@@ -61,13 +56,13 @@ public class JuTrackGui extends GridPane implements GetIssueResultItemPresenter 
 
 		DatePicker startDatePicker = new DatePicker(LocalDate.now().minusDays(defProperties.dayRange()));
 		startDatePicker.getEditor().focusedProperty()
-		        .addListener((obs, old, isFocused) -> updateDatePickerStructure(startDatePicker, obs, old, isFocused));
+		        .addListener((obs, old, isFocused) -> updateDatePickerStructure(startDatePicker, isFocused));
 		gridpane.add(new Label("Start date"), 0, row);
 		gridpane.add(startDatePicker, 1, row++);
 
 		DatePicker endDatePicker = new DatePicker(LocalDate.now());
 		endDatePicker.getEditor().focusedProperty()
-		        .addListener((obs, old, isFocused) -> updateDatePickerStructure(startDatePicker, obs, old, isFocused));
+		        .addListener((obs, old, isFocused) -> updateDatePickerStructure(startDatePicker, isFocused));
 		gridpane.add(new Label("End date"), 0, row);
 		gridpane.add(endDatePicker, 1, row++);
 
@@ -106,8 +101,7 @@ public class JuTrackGui extends GridPane implements GetIssueResultItemPresenter 
 		GridPane.setVgrow(resultArea, Priority.ALWAYS);
 	}
 
-	private void updateDatePickerStructure(DatePicker datePicker, ObservableValue<? extends Boolean> observable,
-	        Boolean oldValue, Boolean isFocused) {
+	private void updateDatePickerStructure(DatePicker datePicker, Boolean isFocused) {
 		// This is an workaround for
 		// https://bugs.openjdk.java.net/browse/JDK-8136838
 		// (fixed with Java 8u72)

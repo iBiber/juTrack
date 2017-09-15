@@ -79,7 +79,7 @@ public class ModelIntegrationTest {
 	}
 
 	public static class TestGetIssueResultItemPresenter implements GetIssueResultItemPresenter {
-		List<GetIssueResultItem> resultList;
+		public List<GetIssueResultItem> resultList;
 
 		public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 			resultList = resultStream.collect(Collectors.toList());
