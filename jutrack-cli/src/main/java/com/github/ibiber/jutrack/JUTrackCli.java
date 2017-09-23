@@ -32,7 +32,7 @@ public class JUTrackCli {
 		public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 			// Print to Console
 			resultStream.forEach(item -> System.out
-			        .println(item.getDateTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
+			        .println(item.created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
 			                + item.key + "\t" + item.changeAction + "\t" + item.summary + "\t" + parameter.jiraRootUrl
 			                + "/browse/" + item.key));
 		}

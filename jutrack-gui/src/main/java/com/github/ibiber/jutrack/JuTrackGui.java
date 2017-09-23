@@ -114,7 +114,7 @@ public class JuTrackGui extends GridPane implements GetIssueResultItemPresenter 
 	public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 		// Show result to GUI
 		this.resultArea.setText(resultStream//
-		        .map(item -> item.getDateTime().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
+		        .map(item -> item.created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
 		                + item.key + "\t" + item.changeAction + "\t" + item.summary + "\t" + parameter.jiraRootUrl
 		                + "/browse/" + item.key)//
 		        .collect(Collectors.joining("\n")));
