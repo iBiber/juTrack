@@ -1,6 +1,5 @@
 package com.github.ibiber.jutrack;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.jira.History;
+import com.github.ibiber.jutrack.data.jira.HistoryItem;
 import com.github.ibiber.jutrack.data.jira.Issue;
 
 @Component
@@ -18,14 +19,14 @@ public class JiraIssuesProcessor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesProcessor.class);
 
 	private JiraIssuesQueryExecutor queryExecutor;
-	private IssueListToGetIssueResultItemListTransformer transformer;
+	private IssuesFilter<GetIssueResultItem> filter;
 	private GetIssueResultItemPresenter presenter;
 
 	@Autowired
-	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor,
-	        IssueListToGetIssueResultItemListTransformer transformer, GetIssueResultItemPresenter presenter) {
+	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor, IssuesFilter<GetIssueResultItem> filter,
+	        GetIssueResultItemPresenter presenter) {
 		this.queryExecutor = queryExecutor;
-		this.transformer = transformer;
+		this.filter = filter;
 		this.presenter = presenter;
 	}
 
@@ -38,15 +39,17 @@ public class JiraIssuesProcessor {
 		        parameter.endDate).issues;
 
 		// Filter and transform query result
-		List<GetIssueResultItem> resultList = transformer.execute(userName, issues);
+		List<GetIssueResultItem> resultList = filter.execute(userName, issues, parameter.startDate, parameter.endDate,
+		        this::mapStateChangeItem);
 
 		// Print result
-		Stream<GetIssueResultItem> sorted = resultList.stream().sorted(new Comparator<GetIssueResultItem>() {
-			@Override
-			public int compare(GetIssueResultItem o1, GetIssueResultItem o2) {
-				return o1.created.compareTo(o2.created);
-			}
-		});
+		Stream<GetIssueResultItem> sorted = resultList.stream().sorted((o1, o2) -> o1.created.compareTo(o2.created));
 		presenter.presentResults(parameter, sorted);
+	}
+
+	private GetIssueResultItem mapStateChangeItem(Issue issue, History history, HistoryItem historyItem,
+	        String itemType) {
+		return new GetIssueResultItem(history.getDateTime(), issue.key, issue.getSummary(),
+		        itemType + ": " + historyItem.toString);
 	}
 }

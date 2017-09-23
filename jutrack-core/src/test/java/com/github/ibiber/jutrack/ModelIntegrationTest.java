@@ -90,15 +90,13 @@ public class ModelIntegrationTest {
 	public static class Config {
 		@Bean
 		public JiraIssuesProcessor jiraIssuesProcessor(JiraIssuesQueryExecutor jiraIssuesQueryExecutor,
-		        IssueListToGetIssueResultItemListTransformer issueListToGetIssueResultItemListTransformer,
-		        GetIssueResultItemPresenter presenter) {
-			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, issueListToGetIssueResultItemListTransformer,
-			        presenter);
+		        IssuesFilter<GetIssueResultItem> filter, GetIssueResultItemPresenter presenter) {
+			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, filter, presenter);
 		}
 
 		@Bean
-		public IssueListToGetIssueResultItemListTransformer issueListToGetIssueResultItemListTransformer() {
-			return new IssueListToGetIssueResultItemListTransformer();
+		public IssuesFilter<GetIssueResultItem> issuesFilter() {
+			return new IssuesFilter<GetIssueResultItem>();
 		}
 
 		@Bean
