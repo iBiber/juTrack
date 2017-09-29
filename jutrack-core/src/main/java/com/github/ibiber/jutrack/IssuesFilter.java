@@ -31,7 +31,7 @@ public class IssuesFilter<T> {
 		List<T> resultList = new ArrayList<>();
 
 		issues.forEach(
-		        issue -> issue.changelog.histories.stream().filter(history -> userName.equals(history.author.name))
+		        issue -> issue.changelog.histories.stream().filter(history -> filterUserAndDate(userName, startDate, endDate, history))
 		                .forEach(history -> processUserHistory(resultList, issue, history, transformer)));
 
 		LOGGER.info("Transformed " + resultList.size() + " change log items");
