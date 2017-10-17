@@ -22,6 +22,7 @@ import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.GetIssuesParmeter;
 import com.github.ibiber.jutrack.data.jira.Issue;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
+import com.github.ibiber.jutrack.util.ApplicationVersionProvider;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -41,7 +42,7 @@ public class JUTrack extends Application {
 	 * 
 	 * @see #PREFILL_EXAMPLE_JSON_PATH_PARAMETER
 	 */
-	private final boolean prefillDataForFastTestingPurpose = true;
+	private final boolean prefillDataForFastTestingPurpose = false;
 	/**
 	 * To pre-fill the result, this program parameter must point to the path to the example.json. Usage:<br>
 	 * 
@@ -61,6 +62,8 @@ public class JUTrack extends Application {
 	private DefaultValueProvider defaultValueProvider;
 	@Autowired
 	private JiraIssuesProcessor jiraIssuesProcessor;
+	@Autowired
+	private ApplicationVersionProvider versionProvider;
 
 	@Override
 	public void start(final Stage primaryStage) {
@@ -78,7 +81,7 @@ public class JUTrack extends Application {
 		mainPane.setLeft(parameterPane);
 		mainPane.setCenter(resultPane);
 
-		primaryStage.setTitle("juTrack");
+		primaryStage.setTitle("juTrack - " + versionProvider.getApplicationVersion());
 		primaryStage.setScene(new Scene(mainPane));
 		primaryStage.setResizable(true);
 
