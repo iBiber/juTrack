@@ -1,5 +1,12 @@
 package com.github.ibiber.jutrack;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +15,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.jira.Issue;
+import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,9 +36,27 @@ import javafx.stage.Stage;
 public class JUTrack extends Application {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JUTrack.class);
 
+	/**
+	 * this can be activated for easy testing with a pre-filled result
+	 * 
+	 * @see #PREFILL_EXAMPLE_JSON_PATH_PARAMETER
+	 */
+	private final boolean prefillDataForFastTestingPurpose = true;
+	/**
+	 * To pre-fill the result, this program parameter must point to the path to the example.json. Usage:<br>
+	 * 
+	 * <pre>
+	 * --example.json.path="/[project_path]/juTrack/jutrack-core/src/test/resources/example.json"
+	 * </pre>
+	 */
+	private static final String PREFILL_EXAMPLE_JSON_PATH_PARAMETER = "example.json.path";
+
 	private ConfigurableApplicationContext appContext;
+
 	@Autowired
-	private JuTrackGui parameterDialog;
+	private ParameterPane parameterPane;
+	@Autowired
+	private ResultPane resultPane;
 	@Autowired
 	private DefaultValueProvider defaultValueProvider;
 	@Autowired
@@ -31,9 +65,21 @@ public class JUTrack extends Application {
 	@Override
 	public void start(final Stage primaryStage) {
 		LOGGER.info("Open UI");
-		parameterDialog.init(defaultValueProvider, jiraIssuesProcessor::getIssues);
-		primaryStage.setTitle("Get Jira issues");
-		primaryStage.setScene(new Scene(parameterDialog));
+
+		if (prefillDataForFastTestingPurpose) {
+			prefillParameterDataForFastTestingPurpose();
+		}
+
+		parameterPane.init(defaultValueProvider, jiraIssuesProcessor::getIssues);
+		resultPane.init();
+
+		// Build main pane
+		BorderPane mainPane = new BorderPane();
+		mainPane.setLeft(parameterPane);
+		mainPane.setCenter(resultPane);
+
+		primaryStage.setTitle("juTrack");
+		primaryStage.setScene(new Scene(mainPane));
 		primaryStage.setResizable(true);
 
 		Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
@@ -50,6 +96,10 @@ public class JUTrack extends Application {
 		primaryStage.sizeToScene();
 		primaryStage.centerOnScreen();
 		primaryStage.show();
+
+		if (prefillDataForFastTestingPurpose) {
+			prefillResultDataForFastTestingPurpose();
+		}
 		LOGGER.info("UI opened");
 	}
 
@@ -67,5 +117,51 @@ public class JUTrack extends Application {
 
 	public static void main(String args[]) {
 		Application.launch(JUTrack.class, args);
+	}
+
+	private DefaultValueProvider prefillParameterDataForFastTestingPurpose() {
+		return defaultValueProvider = new DefaultValueProvider(null) {
+			@Override
+			public String getJiraRootUrl() {
+				return "http://localhost:8080";
+			}
+
+			@Override
+			public String getUserName() {
+				return "user_01";
+			}
+
+			@Override
+			public int dayRange() {
+				return 30;
+			}
+
+		};
+	}
+
+	private void prefillResultDataForFastTestingPurpose() {
+		ObjectMapper mapper = new ObjectMapper();
+		List<Issue> issues = new ArrayList<>();
+		try {
+			String exampleJsonPath = getParameters().getNamed().get(PREFILL_EXAMPLE_JSON_PATH_PARAMETER);
+			issues = mapper.readValue(new File(exampleJsonPath), JiraIssuesQueryResults.class).issues;
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		IssuesFilter<GetIssueResultItem> filter = new IssuesFilter<>();
+		LocalDate startDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-01"));
+		LocalDate endDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-29"));
+		List<GetIssueResultItem> resultList = filter.execute("user_01", issues, startDate, endDate,
+		        (issue, history, historyItem, itemType) -> new GetIssueResultItem(history.getDateTime(), issue.key,
+		                issue.getSummary(), itemType + ": " + historyItem.toString));
+
+		resultPane.presentResults(
+		        new GetIssuesParmeter("http://localhost:8080", "user_01", "anyPWD", startDate, endDate),
+		        resultList.stream());
 	}
 }
