@@ -4,3 +4,5 @@ show_downloads: false
 google_analytics:
 
 exclude: ["README.md", "License.md"]
+
+theme: jekyll-theme-midnight
