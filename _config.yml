@@ -1,0 +1,6 @@
+title: juTrack
+description: juTrack searches for tracks from the logged in user in jira to simplify time bookings.
+show_downloads: false
+google_analytics:
+
+exclude: ["README.md", "License.md"]
