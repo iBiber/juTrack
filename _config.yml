@@ -4,3 +4,9 @@ show_downloads: false
 google_analytics:
 
 exclude: ["README.md", "License.md"]
+
+plugins:
+   - jekyll-mentions
+   - jemoji
+   - jekyll-sitemap
+   - jekyll-feed
