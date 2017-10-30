@@ -1,3 +1,6 @@
+---
+layout: default
+---
 Mostly when you start the application, you will connect everytime to the same server and same user. You can define values to prefill the fields by creating a directory and file **"./config/application.properties"** near to the downloaded .jar file.
 
 In this file you can define the following default values for the fields:
