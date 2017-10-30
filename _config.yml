@@ -5,6 +5,8 @@ google_analytics:
 
 exclude: ["README.md", "License.md"]
 
+theme: jekyll-theme-midnight
+
 plugins:
    - jekyll-mentions
    - jemoji
