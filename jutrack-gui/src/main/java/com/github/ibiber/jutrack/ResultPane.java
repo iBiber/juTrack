@@ -16,16 +16,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.GetIssuesParmeter;
 
+import javafx.application.HostServices;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Screen;
@@ -33,7 +37,10 @@ import javafx.stage.Screen;
 @Component
 public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 	private TextArea resultArea;
-	private TableView issue;
+	private TableView issuesTable;
+
+	@Autowired
+	private HostServices hostServices;
 
 	public void init() {
 		double preferredWidth = Screen.getPrimary().getVisualBounds().getWidth() * 0.5;
@@ -44,8 +51,8 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 		tabPane.setPrefSize(preferredWidth, 400);
 
 		Tab tableTab = new Tab("Table View");
-		issue = new TableView();
-		tableTab.setContent(issue);
+		issuesTable = new TableView();
+		tableTab.setContent(issuesTable);
 
 		Tab textTab = new Tab("Text View");
 		resultArea = new TextArea();
@@ -56,7 +63,7 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 	@Override
 	public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 		// Show result to GUI
-		issue.getColumns().clear();
+		issuesTable.getColumns().clear();
 		createHeaderColumns(parameter);
 
 		// Fill table data and result text area
@@ -69,7 +76,7 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 		        .collect(Collectors.joining("\n"));
 		this.resultArea.setText(resultText);
 
-		issue.setItems(FXCollections.observableArrayList(rows.getRows()));
+		issuesTable.setItems(FXCollections.observableArrayList(rows.getRows()));
 	}
 
 	class Rows {
@@ -113,8 +120,8 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 	private void createHeaderColumns(GetIssuesParmeter parameter) {
 		// Build first column
 		List<TableColumn> columns = new ArrayList<>();
-		TableColumn<Row, String> issuesColumn = new TableColumn<>("Issue");
-		issuesColumn.setCellValueFactory(row -> new ReadOnlyObjectWrapper<>(row.getValue().getIssueKey()));
+		TableColumn<Row, Hyperlink> issuesColumn = new TableColumn<>("Issue");
+		issuesColumn.setCellValueFactory((cellFeature) -> createIssueCell(parameter, cellFeature));
 		columns.add(issuesColumn);
 
 		// Create one column per day
@@ -127,7 +134,19 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 			        row -> new ReadOnlyObjectWrapper<>(row.getValue().getValueByColumnTitle(columnTitle)));
 			columns.add(col);
 		});
-		issue.getColumns().addAll(columns);
+		issuesTable.getColumns().addAll(columns);
+	}
+
+	private ReadOnlyObjectWrapper<Hyperlink> createIssueCell(GetIssuesParmeter parameter,
+	        CellDataFeatures<Row, Hyperlink> row) {
+		Hyperlink hyperLink = new Hyperlink(row.getValue().getIssueKey());
+		hyperLink.setOnAction((e) -> openBrowser(parameter, hyperLink));
+		return new ReadOnlyObjectWrapper<>(hyperLink);
+	}
+
+	private void openBrowser(GetIssuesParmeter parameter, Hyperlink hyperLink) {
+		String link = parameter.jiraRootUrl + "/browse/" + hyperLink.getText();
+		hostServices.showDocument(link);
 	}
 
 	private String getColumnHeader(Temporal dateTime) {

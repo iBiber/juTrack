@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -25,6 +27,7 @@ import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
 import com.github.ibiber.jutrack.util.ApplicationVersionProvider;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -91,6 +94,8 @@ public class JUTrack extends Application {
 
 			Text text = new Text(throwable.getMessage());
 			text.setWrappingWidth(600);
+
+			throwable.printStackTrace();
 
 			alert.getDialogPane().setContent(text);
 			alert.showAndWait();
@@ -166,5 +171,13 @@ public class JUTrack extends Application {
 		resultPane.presentResults(
 		        new GetIssuesParmeter("http://localhost:8080", "user_01", "anyPWD", startDate, endDate),
 		        resultList.stream());
+	}
+
+	@Configuration
+	protected class Config {
+		@Bean
+		public HostServices hostServices() {
+			return getHostServices();
+		}
 	}
 }
