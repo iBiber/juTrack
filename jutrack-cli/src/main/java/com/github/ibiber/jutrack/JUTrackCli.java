@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 
 @SpringBootApplication
 public class JUTrackCli {
@@ -29,7 +29,7 @@ public class JUTrackCli {
 		}
 
 		@Override
-		public void presentResults(JiraQueryParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+		public void presentResults(JiraQueryParmeter parameter, Stream<JiraQueryResultItem> resultStream) {
 			// Print to Console
 			resultStream.forEach(item -> System.out
 			        .println(item.created.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)) + "\t"
