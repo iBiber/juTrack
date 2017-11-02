@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.data.jira.Issue;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
 import com.github.ibiber.jutrack.util.ApplicationVersionProvider;
@@ -169,7 +169,7 @@ public class JUTrack extends Application {
 		                issue.getSummary(), itemType + ": " + historyItem.toString));
 
 		resultPane.presentResults(
-		        new GetIssuesParmeter("http://localhost:8080", "user_01", "anyPWD", startDate, endDate),
+		        new JiraQueryParmeter("http://localhost:8080", "user_01", "anyPWD", startDate, endDate),
 		        resultList.stream());
 	}
 

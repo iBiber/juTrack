@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.data.jira.History;
 import com.github.ibiber.jutrack.data.jira.HistoryItem;
 import com.github.ibiber.jutrack.data.jira.Issue;
@@ -30,7 +30,7 @@ public class JiraIssuesProcessor {
 		this.presenter = presenter;
 	}
 
-	public void getIssues(GetIssuesParmeter parameter) {
+	public void getIssues(JiraQueryParmeter parameter) {
 		LOGGER.info("Get issues: " + parameter);
 		String userName = parameter.credentials.userName;
 

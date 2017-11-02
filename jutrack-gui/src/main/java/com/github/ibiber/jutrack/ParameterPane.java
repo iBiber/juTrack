@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.util.Strings;
 
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ import javafx.scene.layout.GridPane;
 
 @Component
 public class ParameterPane extends GridPane {
-	public void init(DefaultValueProvider defProperties, Consumer<GetIssuesParmeter> callback) {
+	public void init(DefaultValueProvider defProperties, Consumer<JiraQueryParmeter> callback) {
 		GridPane gridpane = this;
 		gridpane.setPadding(new Insets(5));
 		gridpane.setHgap(5);
@@ -72,7 +72,7 @@ public class ParameterPane extends GridPane {
 
 					alert.showAndWait();
 				} else {
-					GetIssuesParmeter parameter = new GetIssuesParmeter(jiraRootUrlField.getText(),
+					JiraQueryParmeter parameter = new JiraQueryParmeter(jiraRootUrlField.getText(),
 					        userNameField.getText(), passwordField.getText(), startDatePicker.getValue(),
 					        endDatePicker.getValue());
 					callback.accept(parameter);

@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 
 import javafx.application.HostServices;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -61,7 +61,7 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 	}
 
 	@Override
-	public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+	public void presentResults(JiraQueryParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 		// Show result to GUI
 		issuesTable.getColumns().clear();
 		createHeaderColumns(parameter);
@@ -117,7 +117,7 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 		}
 	}
 
-	private void createHeaderColumns(GetIssuesParmeter parameter) {
+	private void createHeaderColumns(JiraQueryParmeter parameter) {
 		// Build first column
 		List<TableColumn> columns = new ArrayList<>();
 		TableColumn<Row, Hyperlink> issuesColumn = new TableColumn<>("Issue");
@@ -137,14 +137,14 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 		issuesTable.getColumns().addAll(columns);
 	}
 
-	private ReadOnlyObjectWrapper<Hyperlink> createIssueCell(GetIssuesParmeter parameter,
+	private ReadOnlyObjectWrapper<Hyperlink> createIssueCell(JiraQueryParmeter parameter,
 	        CellDataFeatures<Row, Hyperlink> row) {
 		Hyperlink hyperLink = new Hyperlink(row.getValue().getIssueKey());
 		hyperLink.setOnAction((e) -> openBrowser(parameter, hyperLink));
 		return new ReadOnlyObjectWrapper<>(hyperLink);
 	}
 
-	private void openBrowser(GetIssuesParmeter parameter, Hyperlink hyperLink) {
+	private void openBrowser(JiraQueryParmeter parameter, Hyperlink hyperLink) {
 		String link = parameter.jiraRootUrl + "/browse/" + hyperLink.getText();
 		hostServices.showDocument(link);
 	}

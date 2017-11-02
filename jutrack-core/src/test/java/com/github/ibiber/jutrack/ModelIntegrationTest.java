@@ -31,7 +31,7 @@ import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 import com.github.ibiber.jutrack.data.GetIssueResultItem;
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
+import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.util.JiraQuery;
 
 @RunWith(SpringRunner.class)
@@ -56,7 +56,7 @@ public class ModelIntegrationTest {
 		        .andExpect(MockRestRequestMatchers.header("Authorization", "Basic dXNlcl8wMTphbnlQYXNzd29yZA=="))
 		        .andRespond(MockRestResponseCreators.withSuccess(readExampleJson(), MediaType.APPLICATION_JSON));
 
-		testee.getIssues(new GetIssuesParmeter("http://localhost:8080", "user_01", "anyPassword",
+		testee.getIssues(new JiraQueryParmeter("http://localhost:8080", "user_01", "anyPassword",
 		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-01")),
 		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-29"))));
 
@@ -81,7 +81,7 @@ public class ModelIntegrationTest {
 	public static class TestGetIssueResultItemPresenter implements GetIssueResultItemPresenter {
 		public List<GetIssueResultItem> resultList;
 
-		public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+		public void presentResults(JiraQueryParmeter parameter, Stream<GetIssueResultItem> resultStream) {
 			resultList = resultStream.collect(Collectors.toList());
 		}
 	}

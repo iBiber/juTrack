@@ -3,13 +3,13 @@ package com.github.ibiber.jutrack.data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class GetIssuesParmeter {
+public class JiraQueryParmeter {
 	public final String jiraRootUrl;
 	public final Credentials credentials;
 	public final LocalDate startDate;
 	public final LocalDate endDate;
 
-	public GetIssuesParmeter(String jiraRootUrl, String userName, String password, LocalDate startDate,
+	public JiraQueryParmeter(String jiraRootUrl, String userName, String password, LocalDate startDate,
 	        LocalDate endDate) {
 		super();
 		this.jiraRootUrl = jiraRootUrl;
@@ -56,8 +56,8 @@ public class GetIssuesParmeter {
 			return this;
 		}
 
-		public GetIssuesParmeter build() {
-			return new GetIssuesParmeter(jiraRootUrl, userName, password, startDate, endDate);
+		public JiraQueryParmeter build() {
+			return new JiraQueryParmeter(jiraRootUrl, userName, password, startDate, endDate);
 		}
 	}
 }
