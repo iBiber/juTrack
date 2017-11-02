@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.data.jira.History;
 import com.github.ibiber.jutrack.data.jira.HistoryItem;
@@ -19,11 +19,11 @@ public class JiraIssuesProcessor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesProcessor.class);
 
 	private JiraIssuesQueryExecutor queryExecutor;
-	private IssuesFilter<GetIssueResultItem> filter;
+	private IssuesFilter<JiraQueryResultItem> filter;
 	private GetIssueResultItemPresenter presenter;
 
 	@Autowired
-	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor, IssuesFilter<GetIssueResultItem> filter,
+	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor, IssuesFilter<JiraQueryResultItem> filter,
 	        GetIssueResultItemPresenter presenter) {
 		this.queryExecutor = queryExecutor;
 		this.filter = filter;
@@ -39,17 +39,17 @@ public class JiraIssuesProcessor {
 		        parameter.endDate).issues;
 
 		// Filter and transform query result
-		List<GetIssueResultItem> resultList = filter.execute(userName, issues, parameter.startDate, parameter.endDate,
+		List<JiraQueryResultItem> resultList = filter.execute(userName, issues, parameter.startDate, parameter.endDate,
 		        this::mapStateChangeItem);
 
 		// Print result
-		Stream<GetIssueResultItem> sorted = resultList.stream().sorted((o1, o2) -> o1.created.compareTo(o2.created));
+		Stream<JiraQueryResultItem> sorted = resultList.stream().sorted((o1, o2) -> o1.created.compareTo(o2.created));
 		presenter.presentResults(parameter, sorted);
 	}
 
-	private GetIssueResultItem mapStateChangeItem(Issue issue, History history, HistoryItem historyItem,
+	private JiraQueryResultItem mapStateChangeItem(Issue issue, History history, HistoryItem historyItem,
 	        String itemType) {
-		return new GetIssueResultItem(history.getDateTime(), issue.key, issue.getSummary(),
+		return new JiraQueryResultItem(history.getDateTime(), issue.key, issue.getSummary(),
 		        itemType + ": " + historyItem.toString);
 	}
 }

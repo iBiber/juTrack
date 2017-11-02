@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 
 import javafx.application.HostServices;
@@ -61,7 +61,7 @@ public class ResultPane extends TabPane implements GetIssueResultItemPresenter {
 	}
 
 	@Override
-	public void presentResults(JiraQueryParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+	public void presentResults(JiraQueryParmeter parameter, Stream<JiraQueryResultItem> resultStream) {
 		// Show result to GUI
 		issuesTable.getColumns().clear();
 		createHeaderColumns(parameter);

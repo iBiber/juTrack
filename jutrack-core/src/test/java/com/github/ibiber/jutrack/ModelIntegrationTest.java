@@ -30,7 +30,7 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.util.JiraQuery;
 
@@ -79,9 +79,9 @@ public class ModelIntegrationTest {
 	}
 
 	public static class TestGetIssueResultItemPresenter implements GetIssueResultItemPresenter {
-		public List<GetIssueResultItem> resultList;
+		public List<JiraQueryResultItem> resultList;
 
-		public void presentResults(JiraQueryParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+		public void presentResults(JiraQueryParmeter parameter, Stream<JiraQueryResultItem> resultStream) {
 			resultList = resultStream.collect(Collectors.toList());
 		}
 	}
@@ -90,13 +90,13 @@ public class ModelIntegrationTest {
 	public static class Config {
 		@Bean
 		public JiraIssuesProcessor jiraIssuesProcessor(JiraIssuesQueryExecutor jiraIssuesQueryExecutor,
-		        IssuesFilter<GetIssueResultItem> filter, GetIssueResultItemPresenter presenter) {
+		        IssuesFilter<JiraQueryResultItem> filter, GetIssueResultItemPresenter presenter) {
 			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, filter, presenter);
 		}
 
 		@Bean
-		public IssuesFilter<GetIssueResultItem> issuesFilter() {
-			return new IssuesFilter<GetIssueResultItem>();
+		public IssuesFilter<JiraQueryResultItem> issuesFilter() {
+			return new IssuesFilter<JiraQueryResultItem>();
 		}
 
 		@Bean

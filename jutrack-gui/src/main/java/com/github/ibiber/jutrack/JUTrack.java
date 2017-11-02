@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Lazy;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.data.jira.Issue;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
@@ -161,11 +161,11 @@ public class JUTrack extends Application {
 			e.printStackTrace();
 		}
 
-		IssuesFilter<GetIssueResultItem> filter = new IssuesFilter<>();
+		IssuesFilter<JiraQueryResultItem> filter = new IssuesFilter<>();
 		LocalDate startDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-01"));
 		LocalDate endDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-29"));
-		List<GetIssueResultItem> resultList = filter.execute("user_01", issues, startDate, endDate,
-		        (issue, history, historyItem, itemType) -> new GetIssueResultItem(history.getDateTime(), issue.key,
+		List<JiraQueryResultItem> resultList = filter.execute("user_01", issues, startDate, endDate,
+		        (issue, history, historyItem, itemType) -> new JiraQueryResultItem(history.getDateTime(), issue.key,
 		                issue.getSummary(), itemType + ": " + historyItem.toString));
 
 		resultPane.presentResults(
