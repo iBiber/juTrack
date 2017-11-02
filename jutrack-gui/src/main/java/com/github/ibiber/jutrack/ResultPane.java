@@ -19,8 +19,9 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.JiraQueryResultItem;
-import com.github.ibiber.jutrack.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.external.GetIssueResultItemPresenter;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
 import javafx.application.HostServices;
 import javafx.beans.property.ReadOnlyObjectWrapper;

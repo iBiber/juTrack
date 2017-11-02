@@ -20,11 +20,15 @@ import org.springframework.context.annotation.Lazy;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.ibiber.jutrack.data.JiraQueryResultItem;
-import com.github.ibiber.jutrack.data.JiraQueryParmeter;
-import com.github.ibiber.jutrack.data.jira.Issue;
-import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
-import com.github.ibiber.jutrack.util.ApplicationVersionProvider;
+import com.github.ibiber.jutrack.application.ApplicationVersionProvider;
+import com.github.ibiber.jutrack.domain.DefaultValueProvider;
+import com.github.ibiber.jutrack.domain.IssuesFilter;
+import com.github.ibiber.jutrack.domain.data.jira.Issue;
+import com.github.ibiber.jutrack.domain.data.jira.JiraIssuesQueryResults;
+import com.github.ibiber.jutrack.external.DefaultValueProviderService;
+import com.github.ibiber.jutrack.external.JiraIssuesProcessorService;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -62,9 +66,9 @@ public class JUTrack extends Application {
 	@Autowired
 	private ResultPane resultPane;
 	@Autowired
-	private DefaultValueProvider defaultValueProvider;
+	private DefaultValueProviderService defaultValueProvider;
 	@Autowired
-	private JiraIssuesProcessor jiraIssuesProcessor;
+	private JiraIssuesProcessorService jiraIssuesProcessor;
 	@Autowired
 	private ApplicationVersionProvider versionProvider;
 
@@ -76,7 +80,7 @@ public class JUTrack extends Application {
 			prefillParameterDataForFastTestingPurpose();
 		}
 
-		parameterPane.init(defaultValueProvider, jiraIssuesProcessor::getIssues);
+		parameterPane.init(defaultValueProvider, (parameter) -> jiraIssuesProcessor.getIssues(parameter, resultPane));
 		resultPane.init();
 
 		// Build main pane
@@ -127,7 +131,7 @@ public class JUTrack extends Application {
 		Application.launch(JUTrack.class, args);
 	}
 
-	private DefaultValueProvider prefillParameterDataForFastTestingPurpose() {
+	private DefaultValueProviderService prefillParameterDataForFastTestingPurpose() {
 		return defaultValueProvider = new DefaultValueProvider(null) {
 			@Override
 			public String getJiraRootUrl() {

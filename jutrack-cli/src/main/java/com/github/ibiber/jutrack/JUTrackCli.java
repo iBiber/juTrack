@@ -10,8 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.JiraQueryParmeter;
-import com.github.ibiber.jutrack.data.JiraQueryResultItem;
+import com.github.ibiber.jutrack.domain.JiraIssuesProcessor;
+import com.github.ibiber.jutrack.external.GetIssueResultItemPresenter;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
 @SpringBootApplication
 public class JUTrackCli {
@@ -25,7 +27,7 @@ public class JUTrackCli {
 		@Override
 		public void run(String... args) throws Exception {
 			JiraQueryParmeter parameter = cliHandler.getParameter(args);
-			processor.getIssues(parameter);
+			processor.getIssues(parameter, this);
 		}
 
 		@Override

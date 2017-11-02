@@ -5,8 +5,9 @@ import java.util.function.Consumer;
 
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.JiraQueryParmeter;
-import com.github.ibiber.jutrack.util.Strings;
+import com.github.ibiber.common.general.Strings;
+import com.github.ibiber.jutrack.external.DefaultValueProviderService;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +25,7 @@ import javafx.scene.layout.GridPane;
 
 @Component
 public class ParameterPane extends GridPane {
-	public void init(DefaultValueProvider defProperties, Consumer<JiraQueryParmeter> callback) {
+	public void init(DefaultValueProviderService defProperties, Consumer<JiraQueryParmeter> callback) {
 		GridPane gridpane = this;
 		gridpane.setPadding(new Insets(5));
 		gridpane.setHgap(5);
