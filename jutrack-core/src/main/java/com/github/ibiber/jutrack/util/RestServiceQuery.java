@@ -4,6 +4,7 @@ import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,13 +21,14 @@ public class RestServiceQuery {
 
 	private RestTemplate restTemplate;
 
+	@Autowired
 	public RestServiceQuery(RestTemplateBuilder builder) {
 		this.restTemplate = builder.build();
 	}
 
 	public <T> T httpGetQueryBasicAuthorization(Credentials credentials, Class<T> responseType, String path,
-	        String queryParameters) {
-		String queryUrl = path + "?" + queryParameters;
+	        UrlParameterBuilder queryParametersBuilder) {
+		String queryUrl = path + "?" + queryParametersBuilder.build();
 
 		LOGGER.info("Query: " + queryUrl);
 

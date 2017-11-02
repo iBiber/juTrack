@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.github.ibiber.jutrack.data.Credentials;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
 import com.github.ibiber.jutrack.util.RestServiceQuery;
+import com.github.ibiber.jutrack.util.UrlParameterBuilder;
 
 @Component
 public class JiraIssuesQueryExecutor {
@@ -25,14 +26,20 @@ public class JiraIssuesQueryExecutor {
 
 	public JiraIssuesQueryResults getIssues(String jiraUrl, Credentials credentials, LocalDate startDate,
 	        LocalDate endDate) {
+
 		String startDateStr = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		String endDateStr = endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 		String url = jiraUrl + "/rest/api/2/search";
-		String urlParameter = "jql=assignee was " + credentials.userName // Filter for user
-		        + " AND status changed during (\"" + startDateStr + "\",\"" + endDateStr + "\")" // Filter for time range
-		        + "&fields=key,summary" // reduce the issue result to the fields "key" and "summary"
-		        + "&expand=changelog"; // collect the change log of each issue
+
+		String jql = "assignee was " + credentials.userName; // Filter for user
+		jql += " AND status changed during (\"" + startDateStr + "\",\"" + endDateStr + "\")"; // Filter for time range
+
+		UrlParameterBuilder urlParameter = new UrlParameterBuilder();
+		urlParameter.add("jql", jql);
+		urlParameter.add("fields", "key,summary"); // reduce the issue result to the fields "key" and "summary"
+		urlParameter.add("expand", "changelog"); // collect the change log of each issue
+
 		JiraIssuesQueryResults queryResults = restServiceQuery.httpGetQueryBasicAuthorization(credentials,
 		        JiraIssuesQueryResults.class, url, urlParameter);
 
