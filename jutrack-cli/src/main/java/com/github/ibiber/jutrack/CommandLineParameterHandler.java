@@ -8,17 +8,18 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
-import com.github.ibiber.jutrack.util.Strings;
-import com.github.ibiber.jutrack.util.Throwables;
+import com.github.ibiber.common.general.Strings;
+import com.github.ibiber.common.general.Throwables;
+import com.github.ibiber.jutrack.external.DefaultValueProviderService;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
 
 @Component
 public class CommandLineParameterHandler {
 	@Autowired
-	private DefaultValueProvider defaultValue;
+	private DefaultValueProviderService defaultValue;
 
-	public GetIssuesParmeter getParameter(String... args) {
-		GetIssuesParmeter.Builder builder = new GetIssuesParmeter.Builder();
+	public JiraQueryParmeter getParameter(String... args) {
+		JiraQueryParmeter.Builder builder = new JiraQueryParmeter.Builder();
 
 		try {
 			builder.jiraRootUrl(readValue("Jira URL root", defaultValue.getJiraRootUrl()));

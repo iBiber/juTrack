@@ -30,9 +30,14 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
-import com.github.ibiber.jutrack.data.GetIssueResultItem;
-import com.github.ibiber.jutrack.data.GetIssuesParmeter;
-import com.github.ibiber.jutrack.util.JiraQuery;
+import com.github.ibiber.common.http.RestServiceQuery;
+import com.github.ibiber.jutrack.domain.IssuesFilter;
+import com.github.ibiber.jutrack.domain.JiraIssuesProcessor;
+import com.github.ibiber.jutrack.domain.JiraIssuesQueryExecutor;
+import com.github.ibiber.jutrack.external.GetIssueResultItemPresenter;
+import com.github.ibiber.jutrack.external.JiraIssuesProcessorService;
+import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
+import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
 @RunWith(SpringRunner.class)
 @RestClientTest(JiraIssuesProcessor.class)
@@ -41,7 +46,7 @@ public class ModelIntegrationTest {
 	@Autowired
 	private TestGetIssueResultItemPresenter presenter;
 	@Autowired
-	private JiraIssuesProcessor testee;
+	private JiraIssuesProcessorService testee;
 	@Autowired
 	private MockRestServiceServer mockServer;
 
@@ -56,9 +61,9 @@ public class ModelIntegrationTest {
 		        .andExpect(MockRestRequestMatchers.header("Authorization", "Basic dXNlcl8wMTphbnlQYXNzd29yZA=="))
 		        .andRespond(MockRestResponseCreators.withSuccess(readExampleJson(), MediaType.APPLICATION_JSON));
 
-		testee.getIssues(new GetIssuesParmeter("http://localhost:8080", "user_01", "anyPassword",
+		testee.getIssues(new JiraQueryParmeter("http://localhost:8080", "user_01", "anyPassword",
 		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-01")),
-		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-29"))));
+		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-29"))), presenter);
 
 		mockServer.verify();
 
@@ -79,9 +84,9 @@ public class ModelIntegrationTest {
 	}
 
 	public static class TestGetIssueResultItemPresenter implements GetIssueResultItemPresenter {
-		public List<GetIssueResultItem> resultList;
+		public List<JiraQueryResultItem> resultList;
 
-		public void presentResults(GetIssuesParmeter parameter, Stream<GetIssueResultItem> resultStream) {
+		public void presentResults(JiraQueryParmeter parameter, Stream<JiraQueryResultItem> resultStream) {
 			resultList = resultStream.collect(Collectors.toList());
 		}
 	}
@@ -89,23 +94,23 @@ public class ModelIntegrationTest {
 	@Configuration
 	public static class Config {
 		@Bean
-		public JiraIssuesProcessor jiraIssuesProcessor(JiraIssuesQueryExecutor jiraIssuesQueryExecutor,
-		        IssuesFilter<GetIssueResultItem> filter, GetIssueResultItemPresenter presenter) {
-			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, filter, presenter);
+		public JiraIssuesProcessorService jiraIssuesProcessor(JiraIssuesQueryExecutor jiraIssuesQueryExecutor,
+		        IssuesFilter<JiraQueryResultItem> filter) {
+			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, filter);
 		}
 
 		@Bean
-		public IssuesFilter<GetIssueResultItem> issuesFilter() {
-			return new IssuesFilter<GetIssueResultItem>();
+		public IssuesFilter<JiraQueryResultItem> issuesFilter() {
+			return new IssuesFilter<JiraQueryResultItem>();
 		}
 
 		@Bean
-		public JiraQuery jiraQuery(RestTemplateBuilder builder) {
-			return new JiraQuery(builder);
+		public RestServiceQuery jiraQuery(RestTemplateBuilder builder) {
+			return new RestServiceQuery(builder.build());
 		}
 
 		@Bean
-		public JiraIssuesQueryExecutor jiraIssuesQueryExecutor(JiraQuery jiraQuery) {
+		public JiraIssuesQueryExecutor jiraIssuesQueryExecutor(RestServiceQuery jiraQuery) {
 			return new JiraIssuesQueryExecutor(jiraQuery);
 		}
 
