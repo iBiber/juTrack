@@ -15,16 +15,17 @@ import org.springframework.web.client.RestTemplate;
 import com.github.ibiber.jutrack.data.Credentials;
 
 @Component
-public class JiraQuery {
-	private static final Logger LOGGER = LoggerFactory.getLogger(JiraQuery.class);
+public class RestServiceQuery {
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceQuery.class);
 
 	private RestTemplate restTemplate;
 
-	public JiraQuery(RestTemplateBuilder builder) {
+	public RestServiceQuery(RestTemplateBuilder builder) {
 		this.restTemplate = builder.build();
 	}
 
-	public <T> T query(Credentials credentials, Class<T> responseType, String path, String queryParameters) {
+	public <T> T httpGetQueryBasicAuthorization(Credentials credentials, Class<T> responseType, String path,
+	        String queryParameters) {
 		String queryUrl = path + "?" + queryParameters;
 
 		LOGGER.info("Query: " + queryUrl);

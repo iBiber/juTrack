@@ -30,9 +30,9 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
-import com.github.ibiber.jutrack.data.JiraQueryResultItem;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
-import com.github.ibiber.jutrack.util.JiraQuery;
+import com.github.ibiber.jutrack.data.JiraQueryResultItem;
+import com.github.ibiber.jutrack.util.RestServiceQuery;
 
 @RunWith(SpringRunner.class)
 @RestClientTest(JiraIssuesProcessor.class)
@@ -100,12 +100,12 @@ public class ModelIntegrationTest {
 		}
 
 		@Bean
-		public JiraQuery jiraQuery(RestTemplateBuilder builder) {
-			return new JiraQuery(builder);
+		public RestServiceQuery jiraQuery(RestTemplateBuilder builder) {
+			return new RestServiceQuery(builder);
 		}
 
 		@Bean
-		public JiraIssuesQueryExecutor jiraIssuesQueryExecutor(JiraQuery jiraQuery) {
+		public JiraIssuesQueryExecutor jiraIssuesQueryExecutor(RestServiceQuery jiraQuery) {
 			return new JiraIssuesQueryExecutor(jiraQuery);
 		}
 

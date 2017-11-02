@@ -9,11 +9,11 @@ import org.springframework.http.HttpHeaders;
 
 import com.github.ibiber.jutrack.data.Credentials;
 
-public class JiraQueryTest {
+public class RestServiceQueryTest {
 	@Test
 	public void buildBasicAuthorizationHeader_buildCorrectly() {
 		HttpHeaders headers = new HttpHeaders();
-		new JiraQuery(new RestTemplateBuilder()).buildBasicAuthorizationHeader(headers,
+		new RestServiceQuery(new RestTemplateBuilder()).buildBasicAuthorizationHeader(headers,
 		        new Credentials("UserA", "AnyPassword"));
 
 		assertThat(headers.keySet(), Matchers.contains("Authorization"));

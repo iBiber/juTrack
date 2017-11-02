@@ -10,17 +10,17 @@ import org.springframework.stereotype.Component;
 
 import com.github.ibiber.jutrack.data.Credentials;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
-import com.github.ibiber.jutrack.util.JiraQuery;
+import com.github.ibiber.jutrack.util.RestServiceQuery;
 
 @Component
 public class JiraIssuesQueryExecutor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesQueryExecutor.class);
 
-	private JiraQuery jiraQuery;
+	private RestServiceQuery restServiceQuery;
 
 	@Autowired
-	public JiraIssuesQueryExecutor(JiraQuery jiraQuery) {
-		this.jiraQuery = jiraQuery;
+	public JiraIssuesQueryExecutor(RestServiceQuery restServiceQuery) {
+		this.restServiceQuery = restServiceQuery;
 	}
 
 	public JiraIssuesQueryResults getIssues(String jiraUrl, Credentials credentials, LocalDate startDate,
@@ -33,8 +33,8 @@ public class JiraIssuesQueryExecutor {
 		        + " AND status changed during (\"" + startDateStr + "\",\"" + endDateStr + "\")" // Filter for time range
 		        + "&fields=key,summary" // reduce the issue result to the fields "key" and "summary"
 		        + "&expand=changelog"; // collect the change log of each issue
-		JiraIssuesQueryResults queryResults = jiraQuery.query(credentials, JiraIssuesQueryResults.class, url,
-		        urlParameter);
+		JiraIssuesQueryResults queryResults = restServiceQuery.httpGetQueryBasicAuthorization(credentials,
+		        JiraIssuesQueryResults.class, url, urlParameter);
 
 		if (queryResults.total > queryResults.maxResults) {
 			LOGGER.warn("The query returns to many results " + queryResults.total + " and only the first "
