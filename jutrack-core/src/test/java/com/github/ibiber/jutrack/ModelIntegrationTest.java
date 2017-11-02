@@ -101,7 +101,7 @@ public class ModelIntegrationTest {
 
 		@Bean
 		public RestServiceQuery jiraQuery(RestTemplateBuilder builder) {
-			return new RestServiceQuery(builder);
+			return new RestServiceQuery(builder.build());
 		}
 
 		@Bean
