@@ -1,10 +1,12 @@
-package com.github.ibiber.jutrack.util;
+package com.github.ibiber.commons.http;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.github.ibiber.commons.http.UrlParameterBuilder;
 
 public class UrlParameterBuilderTest {
 	private UrlParameterBuilder testee;

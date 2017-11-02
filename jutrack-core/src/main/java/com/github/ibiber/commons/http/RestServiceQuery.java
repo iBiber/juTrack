@@ -1,4 +1,4 @@
-package com.github.ibiber.jutrack.util;
+package com.github.ibiber.commons.http;
 
 import java.util.Base64;
 
@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.github.ibiber.jutrack.data.Credentials;
-
 @Component
 public class RestServiceQuery {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceQuery.class);
@@ -26,14 +24,14 @@ public class RestServiceQuery {
 		this.restTemplate = builder.build();
 	}
 
-	public <T> T httpGetQueryBasicAuthorization(Credentials credentials, Class<T> responseType, String path,
-	        UrlParameterBuilder queryParametersBuilder) {
+	public <T> T httpGetQueryBasicAuthorization(Class<T> responseType, String path,
+	        UrlParameterBuilder queryParametersBuilder, String userName, String password) {
 		String queryUrl = path + "?" + queryParametersBuilder.build();
 
 		LOGGER.info("Query: " + queryUrl);
 
 		HttpHeaders headers = new HttpHeaders();
-		buildBasicAuthorizationHeader(headers, credentials);
+		buildBasicAuthorizationHeader(headers, userName, password);
 
 		ResponseEntity<T> exchangeResult = restTemplate.exchange(queryUrl, HttpMethod.GET,
 		        new HttpEntity<String>(headers), responseType);
@@ -50,9 +48,8 @@ public class RestServiceQuery {
 		return exchangeResult.getBody();
 	}
 
-	void buildBasicAuthorizationHeader(HttpHeaders headers, Credentials credentials) {
-		String encodeToString = Base64.getMimeEncoder()
-		        .encodeToString((credentials.userName + ":" + credentials.password).getBytes());
+	void buildBasicAuthorizationHeader(HttpHeaders headers, String userName, String password) {
+		String encodeToString = Base64.getMimeEncoder().encodeToString((userName + ":" + password).getBytes());
 		headers.add("Authorization", "Basic " + encodeToString);
 	}
 }

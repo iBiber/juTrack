@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.ibiber.commons.http.RestServiceQuery;
+import com.github.ibiber.commons.http.UrlParameterBuilder;
 import com.github.ibiber.jutrack.data.Credentials;
 import com.github.ibiber.jutrack.data.jira.JiraIssuesQueryResults;
-import com.github.ibiber.jutrack.util.RestServiceQuery;
-import com.github.ibiber.jutrack.util.UrlParameterBuilder;
 
 @Component
 public class JiraIssuesQueryExecutor {
@@ -40,8 +40,8 @@ public class JiraIssuesQueryExecutor {
 		urlParameter.add("fields", "key,summary"); // reduce the issue result to the fields "key" and "summary"
 		urlParameter.add("expand", "changelog"); // collect the change log of each issue
 
-		JiraIssuesQueryResults queryResults = restServiceQuery.httpGetQueryBasicAuthorization(credentials,
-		        JiraIssuesQueryResults.class, url, urlParameter);
+		JiraIssuesQueryResults queryResults = restServiceQuery.httpGetQueryBasicAuthorization(
+		        JiraIssuesQueryResults.class, url, urlParameter, credentials.userName, credentials.password);
 
 		if (queryResults.total > queryResults.maxResults) {
 			LOGGER.warn("The query returns to many results " + queryResults.total + " and only the first "

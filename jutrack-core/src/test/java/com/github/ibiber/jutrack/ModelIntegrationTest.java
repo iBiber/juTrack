@@ -30,9 +30,9 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 
+import com.github.ibiber.commons.http.RestServiceQuery;
 import com.github.ibiber.jutrack.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.data.JiraQueryResultItem;
-import com.github.ibiber.jutrack.util.RestServiceQuery;
 
 @RunWith(SpringRunner.class)
 @RestClientTest(JiraIssuesProcessor.class)

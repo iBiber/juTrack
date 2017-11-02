@@ -1,4 +1,4 @@
-package com.github.ibiber.jutrack.util;
+package com.github.ibiber.commons.http;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -7,14 +7,11 @@ import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 
-import com.github.ibiber.jutrack.data.Credentials;
-
 public class RestServiceQueryTest {
 	@Test
 	public void buildBasicAuthorizationHeader_buildCorrectly() {
 		HttpHeaders headers = new HttpHeaders();
-		new RestServiceQuery(new RestTemplateBuilder()).buildBasicAuthorizationHeader(headers,
-		        new Credentials("UserA", "AnyPassword"));
+		new RestServiceQuery(new RestTemplateBuilder()).buildBasicAuthorizationHeader(headers, "UserA", "AnyPassword");
 
 		assertThat(headers.keySet(), Matchers.contains("Authorization"));
 		// Assert that the Authorization is user:password encoded with Base64
