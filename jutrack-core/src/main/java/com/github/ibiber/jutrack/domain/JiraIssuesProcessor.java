@@ -18,38 +18,44 @@ import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
 @Component
 public class JiraIssuesProcessor implements JiraIssuesProcessorService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JiraIssuesProcessor.class);
 
-	private JiraIssuesQueryExecutor queryExecutor;
-	private IssuesFilter<JiraQueryResultItem> filter;
+    private JiraIssuesQueryExecutor queryExecutor;
+    private IssuesFilter<JiraQueryResultItem> filter;
+    private WorklogCollector worklogCollector;
 
-	@Autowired
-	public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor, IssuesFilter<JiraQueryResultItem> filter) {
-		this.queryExecutor = queryExecutor;
-		this.filter = filter;
-	}
+    @Autowired
+    public JiraIssuesProcessor(JiraIssuesQueryExecutor queryExecutor, IssuesFilter<JiraQueryResultItem> filter,
+            WorklogCollector worklogCollector) {
+        this.queryExecutor = queryExecutor;
+        this.filter = filter;
+        this.worklogCollector = worklogCollector;
+    }
 
-	@Override
-	public void getIssues(JiraQueryParmeter parameter, GetIssueResultItemPresenter presenter) {
-		LOGGER.info("Get issues: " + parameter);
-		String userName = parameter.credentials.userName;
+    @Override
+    public void getIssues(JiraQueryParmeter parameter, GetIssueResultItemPresenter presenter) {
+        LOGGER.info("Get issues: " + parameter);
+        String userName = parameter.credentials.userName;
 
-		// Query Jira
-		List<Issue> issues = queryExecutor.getIssues(parameter.jiraRootUrl, parameter.credentials, parameter.startDate,
-		        parameter.endDate).issues;
+        // Query Jira
+        List<Issue> issues = queryExecutor.getIssues(parameter.jiraRootUrl, parameter.credentials, parameter.startDate,
+                parameter.endDate).issues;
 
-		// Filter and transform query result
-		List<JiraQueryResultItem> resultList = filter.execute(userName, issues, parameter.startDate, parameter.endDate,
-		        this::mapStateChangeItem);
+        // Filter and transform query result
+        List<JiraQueryResultItem> resultList = filter.execute(userName, issues, parameter.startDate, parameter.endDate,
+                this::mapStateChangeItem);
 
-		// Print result
-		Stream<JiraQueryResultItem> sorted = resultList.stream().sorted((o1, o2) -> o1.created.compareTo(o2.created));
-		presenter.presentResults(parameter, sorted);
-	}
+        // Print result
+        Stream<JiraQueryResultItem> sorted = resultList.stream().sorted((o1, o2) -> o1.created.compareTo(o2.created));
+        presenter.presentResults(parameter, sorted);
 
-	private JiraQueryResultItem mapStateChangeItem(Issue issue, History history, HistoryItem historyItem,
-	        String itemType) {
-		return new JiraQueryResultItem(history.getDateTime(), issue.key, issue.getSummary(),
-		        itemType + ": " + historyItem.toString);
-	}
+        // Collecting tempo results
+        worklogCollector.execute(parameter, issues, parameter.startDate, parameter.endDate);
+    }
+
+    private JiraQueryResultItem mapStateChangeItem(Issue issue, History history, HistoryItem historyItem,
+            String itemType) {
+        return new JiraQueryResultItem(history.getDateTime(), issue.key, issue.getSummary(),
+                itemType + ": " + historyItem.toString);
+    }
 }
