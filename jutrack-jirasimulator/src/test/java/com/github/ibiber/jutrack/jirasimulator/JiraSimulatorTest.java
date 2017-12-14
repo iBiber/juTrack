@@ -37,4 +37,14 @@ public class JiraSimulatorTest {
 		assertThat(testee.updateDate(" \"created\": \"2017-08-25T21:50:00.484+0200\","),
 		        is(" \"created\": \"2017-12-14T13:40:00.000+0200\","));
 	}
+
+	@Test
+	public void getUserOfRequest() {
+		assertThat(testee.getUserOfRequest("assignee was xxx AND"), is("xxx"));
+	}
+
+	@Test
+	public void updateUser() {
+		assertThat(testee.updateUser("\"name\": \"user_01\",", "xxx"), is("\"name\": \"xxx\","));
+	}
 }

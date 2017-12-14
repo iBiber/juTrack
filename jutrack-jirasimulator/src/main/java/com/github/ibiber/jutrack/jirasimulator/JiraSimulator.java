@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,6 +22,9 @@ public class JiraSimulator {
 	private static Pattern regexDatePattern = Pattern
 	        .compile("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\+\\d{4}");
 	private static final LocalDateTime lastDateInJson = LocalDateTime.of(2017, 8, 28, 22, 00);
+
+	/** Regex pattern to replace the user_01 with the one from the request */
+	private static Pattern regexUserPattern = Pattern.compile("user_01");
 
 	@Autowired
 	private CurrentDateTimeProvider currentDateTimeProvider;
@@ -44,11 +48,38 @@ public class JiraSimulator {
 		return result;
 	}
 
+	public String updateUser(String currentLine, String requestUser) {
+		String result = currentLine;
+
+		Matcher matcher = regexUserPattern.matcher(result);
+		if (matcher.find()) {
+			result = matcher.replaceFirst(requestUser);
+		}
+
+		return result;
+	}
+
+	public String updateData(String currentLine, String requestUser) {
+		String result = updateDate(currentLine);
+
+		result = updateUser(result, requestUser);
+
+		return result;
+	}
+
 	@RequestMapping("/rest/api/2/search")
-	public String search() throws IOException {
+	public String search(@RequestParam(name = "jql") String jql) throws IOException {
+		String requestUser = getUserOfRequest(jql);
 		try (BufferedReader buffer = new BufferedReader(
 		        new InputStreamReader(new ClassPathResource("example.json").getInputStream()))) {
-			return buffer.lines().map(this::updateDate).collect(Collectors.joining("\n"));
+			return buffer.lines().map((line) -> updateData(line, requestUser)).collect(Collectors.joining("\n"));
 		}
+	}
+
+	public String getUserOfRequest(String jql) {
+		Pattern pattern = Pattern.compile("assignee was (.*) AND");
+		Matcher matcher = pattern.matcher(jql);
+		matcher.find();
+		return matcher.group(1);
 	}
 }
