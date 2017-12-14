@@ -10,15 +10,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JiraSimulator {
+	/** Regex pattern to find something like this 2017-08-25T21:50:00.484+0200 */
 	private static Pattern regexDatePattern = Pattern
-	        .compile("\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d\\+\\d\\d\\d\\d");
+	        .compile("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}\\+\\d{4}");
 	private static final LocalDateTime lastDateInJson = LocalDateTime.of(2017, 8, 28, 22, 00);
+
+	@Autowired
+	private CurrentDateTimeProvider currentDateTimeProvider;
 
 	public String updateDate(String date) {
 		String result = date;
@@ -28,7 +33,7 @@ public class JiraSimulator {
 			String dateString = matcher.group();
 			DateTimeFormatter jsonDatePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZZZ");
 			LocalDateTime jsonDateTime = LocalDateTime.parse(dateString, jsonDatePattern);
-			LocalDateTime newDate = LocalDateTime.now()
+			LocalDateTime newDate = currentDateTimeProvider.currentDateTime()
 			        .minusDays(lastDateInJson.getDayOfMonth() - jsonDateTime.getDayOfMonth());
 
 			DateTimeFormatter formatter = new DateTimeFormatterBuilder()
