@@ -22,4 +22,19 @@ public class JiraQueryResultItem {
 		        + changeAction + "]";
 	}
 
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public String getChangeAction() {
+		return changeAction;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
 }
