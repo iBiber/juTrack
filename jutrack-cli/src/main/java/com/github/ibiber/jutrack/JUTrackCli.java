@@ -41,6 +41,6 @@ public class JUTrackCli {
 	}
 
 	public static void main(String args[]) {
-		new SpringApplicationBuilder(JUTrackCli.class).web(false).run(args);
+		new SpringApplicationBuilder(JUTrackCli.class).headless(true).run(args);
 	}
 }

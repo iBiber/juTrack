@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,8 +85,8 @@ public class JiraSimulator {
 		return matcher.group(1);
 	}
 
-	@RequestMapping(path = "/browse/${issue}")
-	public String browse(@PathVariable(name = "issue") String issue) throws IOException {
+	@GetMapping(path = "/browse/{issue}")
+	public String browse(@PathVariable String issue)  {
 		return issue;
 	}
 }
