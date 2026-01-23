@@ -1,0 +1,34 @@
+package com.github.ibiber.jutrack.web;
+
+import java.util.Collections;
+import java.util.List;
+
+public class ResultViewModel {
+    private final List<ResultEntryView> entries;
+    private final String textView;
+
+    public ResultViewModel(List<ResultEntryView> entries, String textView) {
+        this.entries = Collections.unmodifiableList(entries);
+        this.textView = textView;
+    }
+
+    public static ResultViewModel empty() {
+        return new ResultViewModel(Collections.emptyList(), "");
+    }
+
+    public List<ResultEntryView> getEntries() {
+        return entries;
+    }
+
+    public String getTextView() {
+        return textView;
+    }
+
+    public boolean hasResults() {
+        return !entries.isEmpty();
+    }
+
+    public int getTotalEntries() {
+        return entries.size();
+    }
+}
