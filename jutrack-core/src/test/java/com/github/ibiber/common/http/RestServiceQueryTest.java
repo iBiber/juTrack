@@ -15,7 +15,7 @@ public class RestServiceQueryTest {
 		HttpHeaders headers = new HttpHeaders();
 		new RestServiceQuery(new RestTemplate()).buildBasicAuthorizationHeader(headers, "UserA", "AnyPassword");
 
-		assertThat(headers.keySet(), Matchers.contains("Authorization"));
+		assertThat(headers.toSingleValueMap().keySet(), Matchers.contains("Authorization"));
 		// Assert that the Authorization is user:password encoded with Base64
 		assertThat(headers.get("Authorization"), Matchers.contains("Basic VXNlckE6QW55UGFzc3dvcmQ="));
 	}

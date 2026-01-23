@@ -8,6 +8,10 @@ It uses the Jira REST interface to gather your actions done in a Jira system.
 You are a developer and want more insights?
 Have a look into the [Project Wiki](https://github.com/iBiber/juTrack/wiki)
 
+### Build prerequisites
+- Java 25 (tested with the GraalVM distribution). Run `sdk use java 25.0.2-graalce` before building locally if you manage JDKs via SDKMAN.
+- Maven 3.9+
+
 ## Current project status
 ### CI status
 Build result: [![Build Status](https://travis-ci.org/iBiber/juTrack.svg?branch=master)](https://travis-ci.org/iBiber/juTrack)  

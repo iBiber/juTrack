@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.stereotype.Component;
@@ -41,6 +42,6 @@ public class JUTrackCli {
 	}
 
 	public static void main(String args[]) {
-		new SpringApplicationBuilder(JUTrackCli.class).web(false).run(args);
+		new SpringApplicationBuilder(JUTrackCli.class).web(WebApplicationType.NONE).run(args);
 	}
 }
