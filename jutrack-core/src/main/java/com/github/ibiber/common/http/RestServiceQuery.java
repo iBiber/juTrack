@@ -33,15 +33,14 @@ public class RestServiceQuery {
 		buildBasicAuthorizationHeader(headers, userName, password);
 
 		ResponseEntity<T> exchangeResult = restTemplate.exchange(queryUrl, HttpMethod.GET,
-		        new HttpEntity<String>(headers), responseType);
+		        new HttpEntity<>(headers), responseType);
 
 		if (exchangeResult.getStatusCode().is2xxSuccessful()) {
 			LOGGER.info("Query successful");
 		} else {
 			LOGGER.error("Query returns an error: " + exchangeResult.getStatusCode());
-			throw new IllegalStateException(
-			        "Unable to exectue the query to jira: " + exchangeResult.getStatusCode().getReasonPhrase() + " ("
-			                + exchangeResult.getStatusCode().value() + ")");
+			throw new IllegalStateException("Unable to execute the query to jira: "
+			        + exchangeResult.getStatusCode() + " (" + exchangeResult.getStatusCode().value() + ")");
 		}
 
 		return exchangeResult.getBody();

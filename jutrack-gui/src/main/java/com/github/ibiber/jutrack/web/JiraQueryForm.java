@@ -8,9 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.github.ibiber.jutrack.external.DefaultValueProviderService;
 import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class JiraQueryForm {
 

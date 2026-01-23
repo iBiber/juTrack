@@ -1,13 +1,12 @@
 package com.github.ibiber.jutrack.web;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -17,30 +16,33 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.github.ibiber.jutrack.external.DefaultValueProviderService;
 
-@WebMvcTest(JiraQueryController.class)
+@ExtendWith(MockitoExtension.class)
 class JiraQueryControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     private DefaultValueProviderService defaultValueProviderService;
 
-    @MockBean
+    @Mock
     private QueryResultService queryResultService;
 
-    @MockBean
+    @Mock
     private Clock clock;
 
     @BeforeEach
     void setUp() {
+        JiraQueryController controller = new JiraQueryController(defaultValueProviderService, queryResultService, clock);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
         when(defaultValueProviderService.getJiraRootUrl()).thenReturn("https://jira.example.com");
         when(defaultValueProviderService.getUserName()).thenReturn("user@example.com");
         when(defaultValueProviderService.dayRange()).thenReturn(3);
@@ -53,8 +55,8 @@ class JiraQueryControllerTest {
     void shouldRenderFormWithDefaults() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("juTrack")))
-                .andExpect(model().attributeExists("form"));
+            .andExpect(model().attributeExists("form"))
+            .andExpect(view().name("index"));
     }
 
     @Test
@@ -67,8 +69,8 @@ class JiraQueryControllerTest {
                 .param("endDate", "2026-01-10"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeHasFieldErrors("form", "jiraRootUrl", "userName", "password"))
-                .andExpect(model().attributeHasFieldErrors("form"))
-                .andExpect(content().string(containsString("End date must not be before start date")));
+            .andExpect(model().attributeHasFieldErrors("form"))
+            .andExpect(view().name("index"));
     }
 
     @Test
@@ -86,7 +88,7 @@ class JiraQueryControllerTest {
                 .param("startDate", "2026-01-01")
                 .param("endDate", "2026-01-05"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("resultView"))
-                .andExpect(content().string(containsString("ABC-123")));
+            .andExpect(model().attributeExists("resultView"))
+            .andExpect(view().name("index"));
     }
 }

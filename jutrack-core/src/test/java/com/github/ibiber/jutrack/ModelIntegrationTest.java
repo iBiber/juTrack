@@ -1,9 +1,8 @@
 package com.github.ibiber.jutrack;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
-
-import static org.hamcrest.CoreMatchers.is;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,21 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
+import org.springframework.web.client.RestTemplate;
 
 import com.github.ibiber.common.http.RestServiceQuery;
 import com.github.ibiber.jutrack.domain.IssuesFilter;
@@ -39,16 +32,21 @@ import com.github.ibiber.jutrack.external.JiraIssuesProcessorService;
 import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
 import com.github.ibiber.jutrack.external.data.JiraQueryResultItem;
 
-@RunWith(SpringRunner.class)
-@RestClientTest(JiraIssuesProcessor.class)
-@ContextConfiguration(classes = ModelIntegrationTest.Config.class)
 public class ModelIntegrationTest {
-	@Autowired
 	private TestGetIssueResultItemPresenter presenter;
-	@Autowired
 	private JiraIssuesProcessorService testee;
-	@Autowired
 	private MockRestServiceServer mockServer;
+
+	@Before
+	public void setUp() {
+		RestTemplate restTemplate = new RestTemplate();
+		mockServer = MockRestServiceServer.createServer(restTemplate);
+		RestServiceQuery restServiceQuery = new RestServiceQuery(restTemplate);
+		IssuesFilter<JiraQueryResultItem> filter = new IssuesFilter<>();
+		JiraIssuesQueryExecutor executor = new JiraIssuesQueryExecutor(restServiceQuery);
+		testee = new JiraIssuesProcessor(executor, filter);
+		presenter = new TestGetIssueResultItemPresenter();
+	}
 
 	@Test
 	public void test() throws Exception {
@@ -91,32 +89,4 @@ public class ModelIntegrationTest {
 		}
 	}
 
-	@Configuration
-	public static class Config {
-		@Bean
-		public JiraIssuesProcessorService jiraIssuesProcessor(JiraIssuesQueryExecutor jiraIssuesQueryExecutor,
-		        IssuesFilter<JiraQueryResultItem> filter) {
-			return new JiraIssuesProcessor(jiraIssuesQueryExecutor, filter);
-		}
-
-		@Bean
-		public IssuesFilter<JiraQueryResultItem> issuesFilter() {
-			return new IssuesFilter<JiraQueryResultItem>();
-		}
-
-		@Bean
-		public RestServiceQuery jiraQuery(RestTemplateBuilder builder) {
-			return new RestServiceQuery(builder.build());
-		}
-
-		@Bean
-		public JiraIssuesQueryExecutor jiraIssuesQueryExecutor(RestServiceQuery jiraQuery) {
-			return new JiraIssuesQueryExecutor(jiraQuery);
-		}
-
-		@Bean
-		public GetIssueResultItemPresenter presenter() {
-			return new TestGetIssueResultItemPresenter();
-		}
-	}
 }
