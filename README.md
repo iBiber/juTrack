@@ -9,7 +9,7 @@ You are a developer and want more insights?
 Have a look into the [Project Wiki](https://github.com/iBiber/juTrack/wiki)
 
 ### Build prerequisites
-- Java 23 (tested with the GraalVM distribution). Run `sdk use java 23.1.6.r21-nik` before building locally if you manage JDKs via SDKMAN.
+- Java 25 (tested with the GraalVM distribution). Run `sdk use java 25.0.2-graalce` before building locally if you manage JDKs via SDKMAN.
 - Maven 3.9+
 
 ## Current project status
