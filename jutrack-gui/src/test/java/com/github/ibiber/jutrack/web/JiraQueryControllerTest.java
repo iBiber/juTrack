@@ -79,7 +79,7 @@ class JiraQueryControllerTest {
                 "10 Jan 2026, 12:00", "ABC-123", "https://jira.example.com/browse/ABC-123", "Demo summary",
                 "Transition to In Progress");
         when(queryResultService.fetch(any())).thenReturn(new ResultViewModel(Collections.singletonList(entry),
-                entry.asPlainTextRow()));
+            entry.asPlainTextRow(), TimelineViewModel.empty()));
 
         mockMvc.perform(post("/query")
                 .param("jiraRootUrl", "https://jira.example.com")

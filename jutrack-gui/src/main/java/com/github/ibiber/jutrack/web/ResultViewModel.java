@@ -6,14 +6,16 @@ import java.util.List;
 public class ResultViewModel {
     private final List<ResultEntryView> entries;
     private final String textView;
+    private final TimelineViewModel timeline;
 
-    public ResultViewModel(List<ResultEntryView> entries, String textView) {
+    public ResultViewModel(List<ResultEntryView> entries, String textView, TimelineViewModel timeline) {
         this.entries = Collections.unmodifiableList(entries);
         this.textView = textView;
+        this.timeline = timeline;
     }
 
     public static ResultViewModel empty() {
-        return new ResultViewModel(Collections.emptyList(), "");
+        return new ResultViewModel(Collections.emptyList(), "", TimelineViewModel.empty());
     }
 
     public List<ResultEntryView> getEntries() {
@@ -22,6 +24,10 @@ public class ResultViewModel {
 
     public String getTextView() {
         return textView;
+    }
+
+    public TimelineViewModel getTimeline() {
+        return timeline;
     }
 
     public boolean hasResults() {
