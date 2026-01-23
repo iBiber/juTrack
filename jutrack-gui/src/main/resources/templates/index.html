@@ -244,7 +244,7 @@
                         <p class="error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
                     </div>
 
-                    <p class="error" th:if="${#fields.hasGlobalErrors()}" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                    <p class="error" th:if="${#fields.hasErrors('dateRangeValid')}" th:errors="*{dateRangeValid}"></p>
 
                     <button type="submit">Fetch worklog</button>
                 </form>
