@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.github.ibiber.jutrack.external.DefaultValueProviderService;
 import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @Controller
 public class JiraQueryController {
