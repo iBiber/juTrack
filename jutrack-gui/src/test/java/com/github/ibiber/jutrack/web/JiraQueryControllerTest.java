@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.github.ibiber.jutrack.external.DefaultValueProviderService;
+import com.github.ibiber.jutrack.external.data.JiraQueryResultItem.EntryType;
 
 @ExtendWith(MockitoExtension.class)
 class JiraQueryControllerTest {
@@ -56,6 +57,7 @@ class JiraQueryControllerTest {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
             .andExpect(model().attributeExists("form"))
+            .andExpect(model().attribute("queryExecuted", false))
             .andExpect(view().name("index"));
     }
 
@@ -70,14 +72,15 @@ class JiraQueryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeHasFieldErrors("form", "jiraRootUrl", "userName", "password"))
             .andExpect(model().attributeHasFieldErrors("form"))
+            .andExpect(model().attribute("queryExecuted", false))
             .andExpect(view().name("index"));
     }
 
     @Test
     void shouldRenderResultsWhenSubmissionIsValid() throws Exception {
         ResultEntryView entry = new ResultEntryView(LocalDateTime.of(2026, 1, 10, 12, 0),
-                "10 Jan 2026, 12:00", "ABC-123", "https://jira.example.com/browse/ABC-123", "Demo summary",
-                "Transition to In Progress");
+            "10 Jan 2026, 12:00", "ABC-123", "https://jira.example.com/browse/ABC-123", "Demo summary",
+            "Transition to In Progress", EntryType.STATUS, "To Do", "In Progress", 0d);
         when(queryResultService.fetch(any())).thenReturn(new ResultViewModel(Collections.singletonList(entry),
             entry.asPlainTextRow(), TimelineViewModel.empty()));
 
@@ -89,6 +92,7 @@ class JiraQueryControllerTest {
                 .param("endDate", "2026-01-05"))
                 .andExpect(status().isOk())
             .andExpect(model().attributeExists("resultView"))
+            .andExpect(model().attribute("queryExecuted", true))
             .andExpect(view().name("index"));
     }
 }

@@ -51,7 +51,7 @@ public class QueryResultService {
         private ResultEntryView mapItem(JiraQueryResultItem item) {
             String issueUrl = parameter.jiraRootUrl + "/browse/" + item.key;
             return new ResultEntryView(item.created, item.created.format(dateTimeFormatter), item.key, issueUrl,
-                    item.summary, item.changeAction);
+                    item.summary, item.changeAction, item.type, item.fromStatus, item.toStatus, item.worklogHours);
         }
 
         ResultViewModel asModel() {
@@ -88,7 +88,12 @@ public class QueryResultService {
                 IssueTimelineRowBuilder builder = perIssue.computeIfAbsent(entry.getIssueKey(), key ->
                         new IssueTimelineRowBuilder(entry.getIssueKey(), entry.getIssueUrl(), entry.getSummary(),
                                 dayCount));
-                builder.addStatus(dayIndex, entry.getChangeAction());
+                if (entry.isStatusChange()) {
+                    builder.addStatus(dayIndex, entry.formattedTransition());
+                }
+                if (entry.isWorklog()) {
+                    builder.addWorklog(dayIndex, entry.getWorklogHours());
+                }
             });
 
             if (perIssue.isEmpty()) {
@@ -107,12 +112,14 @@ public class QueryResultService {
             private final String issueUrl;
             private final String summary;
             private final List<List<String>> statusesByDay;
+            private final double[] worklogHoursByDay;
 
             private IssueTimelineRowBuilder(String issueKey, String issueUrl, String summary, int dayCount) {
                 this.issueKey = issueKey;
                 this.issueUrl = issueUrl;
                 this.summary = summary;
                 this.statusesByDay = new ArrayList<>(dayCount);
+                this.worklogHoursByDay = new double[dayCount];
                 for (int i = 0; i < dayCount; i++) {
                     this.statusesByDay.add(new ArrayList<>());
                 }
@@ -124,11 +131,19 @@ public class QueryResultService {
                 }
             }
 
+            private void addWorklog(int dayIndex, double hours) {
+                if (dayIndex >= 0 && dayIndex < worklogHoursByDay.length) {
+                    worklogHoursByDay[dayIndex] += hours;
+                }
+            }
+
             private IssueTimelineRowView build() {
-                List<String> statuses = statusesByDay.stream()
-                        .map(values -> values.isEmpty() ? "" : String.join("\n", values))
-                        .collect(Collectors.toList());
-                return new IssueTimelineRowView(issueKey, issueUrl, summary, statuses);
+                List<TimelineCellView> cells = new ArrayList<>(statusesByDay.size());
+                for (int i = 0; i < statusesByDay.size(); i++) {
+                    List<String> formatted = statusesByDay.get(i);
+                    cells.add(new TimelineCellView(formatted, worklogHoursByDay[i]));
+                }
+                return new IssueTimelineRowView(issueKey, issueUrl, summary, cells);
             }
         }
     }

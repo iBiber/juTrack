@@ -46,6 +46,26 @@ public class RestServiceQuery {
 		return exchangeResult.getBody();
 	}
 
+	public <T> T httpGetBasicAuthorization(Class<T> responseType, String url, String userName, String password) {
+		LOGGER.info("Query: " + url);
+
+		HttpHeaders headers = new HttpHeaders();
+		buildBasicAuthorizationHeader(headers, userName, password);
+
+		ResponseEntity<T> exchangeResult = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers),
+		        responseType);
+
+		if (exchangeResult.getStatusCode().is2xxSuccessful()) {
+			LOGGER.info("Query successful");
+		} else {
+			LOGGER.error("Query returns an error: " + exchangeResult.getStatusCode());
+			throw new IllegalStateException("Unable to execute the query to jira: "
+			        + exchangeResult.getStatusCode() + " (" + exchangeResult.getStatusCode().value() + ")");
+		}
+
+		return exchangeResult.getBody();
+	}
+
 	void buildBasicAuthorizationHeader(HttpHeaders headers, String userName, String password) {
 		String encodeToString = Base64.getMimeEncoder().encodeToString((userName + ":" + password).getBytes());
 		headers.add("Authorization", "Basic " + encodeToString);

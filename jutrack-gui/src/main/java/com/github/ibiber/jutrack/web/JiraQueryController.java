@@ -40,6 +40,7 @@ public class JiraQueryController {
     @GetMapping({ "/", "" })
     public String showForm(@ModelAttribute("form") JiraQueryForm form, Model model) {
         model.addAttribute("resultView", ResultViewModel.empty());
+        model.addAttribute("queryExecuted", false);
         return "index";
     }
 
@@ -47,6 +48,7 @@ public class JiraQueryController {
     public String submit(@Valid @ModelAttribute("form") JiraQueryForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("resultView", ResultViewModel.empty());
+            model.addAttribute("queryExecuted", false);
             return "index";
         }
 
@@ -54,6 +56,7 @@ public class JiraQueryController {
         LOGGER.info("Processing jira query for {}", parameter.jiraRootUrl);
         ResultViewModel viewModel = queryResultService.fetch(parameter);
         model.addAttribute("resultView", viewModel);
+        model.addAttribute("queryExecuted", true);
         return "index";
     }
 }

@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.hamcrest.Matchers;
+import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
@@ -27,6 +29,7 @@ import com.github.ibiber.common.http.RestServiceQuery;
 import com.github.ibiber.jutrack.domain.IssuesFilter;
 import com.github.ibiber.jutrack.domain.JiraIssuesProcessor;
 import com.github.ibiber.jutrack.domain.JiraIssuesQueryExecutor;
+import com.github.ibiber.jutrack.domain.JiraWorklogQueryExecutor;
 import com.github.ibiber.jutrack.external.GetIssueResultItemPresenter;
 import com.github.ibiber.jutrack.external.JiraIssuesProcessorService;
 import com.github.ibiber.jutrack.external.data.JiraQueryParmeter;
@@ -44,7 +47,8 @@ public class ModelIntegrationTest {
 		RestServiceQuery restServiceQuery = new RestServiceQuery(restTemplate);
 		IssuesFilter<JiraQueryResultItem> filter = new IssuesFilter<>();
 		JiraIssuesQueryExecutor executor = new JiraIssuesQueryExecutor(restServiceQuery);
-		testee = new JiraIssuesProcessor(executor, filter);
+		JiraWorklogQueryExecutor worklogQueryExecutor = new JiraWorklogQueryExecutor(restServiceQuery);
+		testee = new JiraIssuesProcessor(executor, filter, worklogQueryExecutor);
 		presenter = new TestGetIssueResultItemPresenter();
 	}
 
@@ -58,6 +62,14 @@ public class ModelIntegrationTest {
 		        .andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
 		        .andExpect(MockRestRequestMatchers.header("Authorization", "Basic dXNlcl8wMTphbnlQYXNzd29yZA=="))
 		        .andRespond(MockRestResponseCreators.withSuccess(readExampleJson(), MediaType.APPLICATION_JSON));
+
+		mockServer.expect(ExpectedCount.manyTimes(),
+		        MockRestRequestMatchers.requestTo(Matchers.allOf(
+		                Matchers.startsWith("http://localhost:8080/rest/api/2/issue/"),
+		                Matchers.endsWith("/worklog"))))
+		        .andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
+		        .andRespond(MockRestResponseCreators.withSuccess(
+		                "{\"startAt\":0,\"maxResults\":0,\"total\":0,\"worklogs\":[]}", MediaType.APPLICATION_JSON));
 
 		testee.getIssues(new JiraQueryParmeter("http://localhost:8080", "user_01", "anyPassword",
 		        LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse("2017-08-01")),

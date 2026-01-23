@@ -198,13 +198,41 @@
 
         .timeline-table td {
             text-align: center;
+            vertical-align: top;
+        }
+
+        .timeline-table td:not(:first-child) {
+            min-width: 5rem;
         }
 
         .status-cell {
-            white-space: pre-line;
+            white-space: normal;
             font-size: 0.85rem;
             color: var(--fg);
-            min-width: 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .status-cell .status-change {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 0.4rem;
+            padding: 0.2rem 0.4rem;
+            line-height: 1.2;
+        }
+
+        .status-cell .worklog-pill {
+            align-self: flex-start;
+            border-radius: 999px;
+            padding: 0.15rem 0.65rem;
+            background: rgba(255, 179, 71, 0.2);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-cell .status-empty {
+            opacity: 0.4;
         }
 
         .issue-meta {
@@ -341,7 +369,7 @@
                     <div class="result-count" th:text="${resultView.totalEntries} + ' events'">0 events</div>
                 </div>
 
-                <div th:if="${resultView.hasResults()}" class="result-content">
+                <div th:if="${queryExecuted}" class="result-content">
                     <div th:if="${resultView.timeline.hasRows()}">
                         <div class="timeline-table-wrapper">
                             <table class="timeline-table">
@@ -359,8 +387,13 @@
                                                 <small th:text="${row.summary}">Summary</small>
                                             </div>
                                         </td>
-                                        <td th:each="cell : ${row.statuses}" th:text="${#strings.isEmpty(cell) ? '-' : cell}"
-                                            class="status-cell">-</td>
+                                        <td th:each="cell : ${row.cells}">
+                                            <div class="status-cell">
+                                                <div th:if="${!cell.hasStatuses() and !cell.hasWorklog()}" class="status-empty">-</div>
+                                                <div th:each="status : ${cell.statusChanges}" th:text="${status}" class="status-change">To Do → In Progress</div>
+                                                <div th:if="${cell.hasWorklog()}" th:text="${cell.hoursDisplay}" class="worklog-pill">2h</div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -368,7 +401,7 @@
                     </div>
 
                     <div class="timeline-placeholder" th:if="${!resultView.timeline.hasRows()}">
-                        <p>Status changes per day will appear here once data is available.</p>
+                        <p>No transitions or worklogs found for the selected range.</p>
                     </div>
 
                     <details class="secondary-card">
@@ -394,6 +427,9 @@
                                             <td th:text="${entry.changeAction}">Transition</td>
                                             <td th:text="${entry.summary}">Any summary provided by Jira</td>
                                         </tr>
+                                        <tr th:if="${resultView.entries.isEmpty()}">
+                                            <td colspan="4" class="placeholder">No events captured for this query.</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -405,7 +441,7 @@
                     </details>
                 </div>
 
-                <div class="placeholder" th:if="${!resultView.hasResults()}">
+                <div class="placeholder" th:if="${!queryExecuted}">
                     <p>Submit a query to populate the timeline.</p>
                 </div>
             </section>
